@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>tuulblox — dashboard preview</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@500;700;800;900&family=Inter:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --bg:#12121f; --surface:#27273d; --surface-2:#2d2d47; --line:rgba(255,255,255,.10);
+    --ink:#f4f5fb; --muted:#aeaeca; --faint:#6f6f90; --accent:#8881fe; --accent-2:#7f77eb; --accent-light:#a9a4ff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Inter",system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:720px;margin:0 auto;padding:40px 20px 72px}
+  .glow{position:fixed;inset:-30% 40% 60% -20%;background:radial-gradient(circle at 30% 30%,rgba(136,129,254,.38),transparent 60%);filter:blur(40px);pointer-events:none;z-index:0}
+  .content{position:relative;z-index:1}
+  .kick{font:700 12px/1 "Inter",sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-light);display:inline-flex;align-items:center;gap:10px;margin:0 0 16px}
+  .kick::before{content:"";width:26px;height:2px;background:var(--accent)}
+  h1{font-family:"Raleway",sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.01em;font-size:clamp(2rem,8vw,2.9rem);line-height:1.04;margin:0 0 14px}
+  .lede{color:var(--muted);font-size:1.02rem;margin:0 0 12px;max-width:52ch}
+  .tip{display:flex;gap:10px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:13px 15px;color:var(--muted);font-size:.9rem;margin:22px 0 30px}
+  .tip b{color:var(--ink)}
+  .tip .i{color:var(--accent-light);flex:none;font-weight:800}
+  .grid{display:grid;gap:12px}
+  @media(min-width:520px){.grid{grid-template-columns:1fr 1fr}}
+  a.card{display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 17px;text-decoration:none;color:inherit;transition:transform .15s,border-color .15s,background .15s}
+  a.card:hover,a.card:active{transform:translateY(-2px);border-color:rgba(136,129,254,.55);background:var(--surface-2)}
+  .ic{flex:none;width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:rgba(136,129,254,.14);border:1px solid rgba(136,129,254,.28);color:var(--accent-light)}
+  .ic svg{width:22px;height:22px}
+  .ct{flex:1;min-width:0}
+  .ct .t{font-family:"Raleway",sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.01em;font-size:1rem;line-height:1.15}
+  .ct .d{color:var(--faint);font-size:.82rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .arrow{flex:none;color:var(--faint)}
+  a.card:hover .arrow{color:var(--accent-light)}
+  footer{margin-top:34px;color:var(--faint);font:500 12.5px/1.7 "Inter",sans-serif}
+  .full{grid-column:1/-1}
+</style>
+</head>
+<body>
+<div class="glow"></div>
+<div class="wrap content">
+  <p class="kick">tuulblox · preview</p>
+  <h1>tuulblox dashboard</h1>
+  <p class="lede">A JobNimbus desktop companion — glanceable stats plus a chat-first assistant that answers only from your data. Tap a screen to open it.</p>
+
+  <div class="tip">
+    <span class="i">↔</span>
+    <div>These are <b>desktop</b> mockups (1280&nbsp;px windows), so on a phone turn to <b>landscape</b> or pinch-to-zoom. Each screen has a <b>“Theme ·”</b> switch (bottom-right) to flip Nocturne&nbsp;↔&nbsp;Periwinkle Dark; the Map uses the <b>moon</b> icon.</div>
+  </div>
+
+  <div class="grid">
+    <a class="card" href="JN-Pulse%20Home.dc.html">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5"/><path d="M5 10v10h14V10"/></svg></span>
+      <span class="ct"><span class="t">Home</span><span class="d">Welcome-back brief</span></span>
+      <svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <a class="card" href="JN-Pulse%20Dashboard.dc.html">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>
+      <span class="ct"><span class="t">Dashboard</span><span class="d">Stats + assistant</span></span>
+      <svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <a class="card" href="JN-Pulse%20Estimates.dc.html">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M14 3H6v18h12V8z"/><path d="M14 3v5h4"/></svg></span>
+      <span class="ct"><span class="t">Estimates</span><span class="d">Quotes &amp; win rate</span></span>
+      <svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <a class="card" href="JN-Pulse%20Inbox.dc.html">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.5 5h13l3.5 7v6a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-6z"/></svg></span>
+      <span class="ct"><span class="t">Inbox</span><span class="d">Mail + CRM context</span></span>
+      <svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <a class="card" href="JN-Pulse%20Workflow.dc.html">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M8 6h8M7 8l4 8M17 8l-4 8"/></svg></span>
+      <span class="ct"><span class="t">Workflow</span><span class="d">Pipeline whiteboard</span></span>
+      <svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <a class="card" href="JN-Pulse%20Events.dc.html">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg></span>
+      <span class="ct"><span class="t">Events log</span><span class="d">Live activity feed</span></span>
+      <svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <a class="card full" href="JN-Pulse%20Map.html">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.4-8 12-8 12s-8-7.6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span>
+      <span class="ct"><span class="t">Map</span><span class="d">Jobs plotted across the Twin Cities · light Industry ↔ Periwinkle dark</span></span>
+      <svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+
+  <footer>tuulblox dashboard mockups · Nocturne + Periwinkle Dark themes · design preview, not production.</footer>
+</div>
+</body>
+</html>

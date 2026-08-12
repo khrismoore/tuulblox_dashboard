@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="_ds/nocturne-741c5702-a36a-454c-ace4-72ec12afeb97/styles.css">
+<link rel="stylesheet" href="_ds/periwinkle-dark.css">
+<script src="_ds/nocturne-741c5702-a36a-454c-ace4-72ec12afeb97/_ds_bundle.js"></script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0e0f1a;color:#e9e9ed;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+summary{list-style:none}summary::-webkit-details-marker{display:none}
+a{color:var(--color-accent);text-decoration:none}a:hover{color:var(--color-accent-300)}
+code.k{background:var(--color-surface);border:1px solid var(--color-divider);border-radius:5px;padding:1px 6px;font:12px ui-monospace,Menlo,monospace;color:var(--color-accent-300)}
+.sb-wrap{padding:54px 60px 120px}
+.sb-kick{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--color-accent);margin:0 0 14px}
+.sb-head{max-width:1000px;margin:0 auto}
+.sb-note{color:var(--color-neutral-400);font-size:14.5px;line-height:1.65;max-width:800px;margin:0 0 12px;text-wrap:pretty}
+.sb-note b{color:var(--color-text);font-weight:600}
+.sb-legend{display:flex;flex-wrap:wrap;gap:9px;margin-top:26px}
+.sb-chip{display:inline-flex;align-items:center;gap:9px;color:var(--color-neutral-300);background:var(--color-surface);border:1px solid var(--color-divider);border-radius:999px;padding:6px 15px 6px 7px;font-size:12.5px}
+.sb-chip:hover{border-color:var(--color-accent);color:var(--color-text)}
+.sb-chip b{display:grid;place-items:center;width:21px;height:21px;border-radius:50%;background:var(--color-accent-800);color:var(--color-accent-100);font-size:11px;font-weight:600}
+.sb-state{max-width:1280px;margin:0 auto;padding-top:70px;scroll-margin-top:24px}
+.sb-slabel{display:flex;align-items:baseline;gap:13px;margin:0 2px 18px}
+.sb-badge{display:grid;place-items:center;width:31px;height:31px;border-radius:9px;background:var(--color-accent);color:#161826;font-weight:600;font-size:15px;align-self:center}
+.sb-sname{font-size:17px;font-weight:600}
+.sb-smuted{font-size:14px;color:var(--color-neutral-500)}
+.win{width:1280px;background:var(--color-bg);border-radius:13px;overflow:hidden;box-shadow:0 44px 90px -24px rgba(0,0,0,.72),0 0 0 1px var(--color-neutral-800)}
+.titlebar{height:48px;display:flex;align-items:center;gap:11px;padding:0 6px 0 18px;border-bottom:1px solid var(--color-divider);background:linear-gradient(180deg,var(--color-surface),color-mix(in srgb,var(--color-surface) 55%,var(--color-bg)))}
+.brand{font-weight:600;letter-spacing:.15em;font-size:13px}
+.winctl{width:44px;height:32px;display:grid;place-items:center;border-radius:7px;color:var(--color-neutral-500);cursor:default}
+.winctl:hover{background:color-mix(in srgb,var(--color-text) 8%,transparent)}
+.pill{display:inline-flex;align-items:center;gap:8px;font-size:12px;border-radius:999px;padding:5px 12px}
+.ctxbar{display:flex;align-items:center;gap:18px;padding:12px 24px;border-bottom:1px solid var(--color-divider);font-size:13px;color:var(--color-neutral-400);overflow:hidden}
+.ctxbar b{color:var(--color-text);font-weight:600}
+.vr{width:1px;height:15px;background:var(--color-divider);flex:none}
+.stat{background:var(--color-surface);border:1px solid var(--color-divider);border-radius:11px;padding:15px 17px}
+.stat .k{font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--color-neutral-500);margin-bottom:9px}
+.stat .v{font-family:var(--font-heading);font-weight:500;font-size:27px;line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.stat .s{font-size:12px;color:var(--color-neutral-500);margin-top:8px}
+.panel{background:var(--color-surface);border:1px solid var(--color-divider);border-radius:12px;padding:19px 21px}
+.ptitle{font-family:var(--font-heading);font-weight:500;font-size:16px;letter-spacing:-.01em}
+.exq{font-weight:400;font-size:13px;border-radius:999px;color:var(--color-neutral-300);cursor:default}
+.avatar{flex:none;display:grid;place-items:center;width:31px;height:31px;border-radius:9px;background:var(--color-accent-800);color:var(--color-accent-200)}
+.toolchip{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--color-neutral-400);background:var(--color-bg);border:1px solid var(--color-divider);border-radius:999px;padding:5px 13px}
+.sql{margin:0;padding:14px 16px;background:var(--color-bg);border:1px solid var(--color-divider);border-radius:8px;font:12.5px/1.65 ui-monospace,'SF Mono',Menlo,monospace;color:var(--color-accent-300);white-space:pre;overflow:auto}
+.caret{display:inline-block;width:7px;height:15px;background:var(--color-accent);margin-left:3px;vertical-align:-2px;animation:blink 1s step-end infinite}
+.composer{border-top:1px solid var(--color-divider);padding:14px 22px;display:flex;align-items:center;gap:11px;background:color-mix(in srgb,var(--color-surface) 40%,var(--color-bg))}
+.warntag{display:inline-flex;align-items:center;font-size:11px;padding:3px 10px;border-radius:6px;background:color-mix(in srgb,var(--warn,#e0a54a) 15%,transparent);color:var(--warn,#e0a54a);border:1px solid color-mix(in srgb,var(--warn,#e0a54a) 40%,transparent)}
+@keyframes pulse{0%,100%{opacity:.28;transform:scale(.82)}50%{opacity:1;transform:scale(1)}}
+@keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+@keyframes shim{0%{background-position:-260px 0}100%{background-position:520px 0}}
+.skel{background:linear-gradient(90deg,var(--color-surface),var(--color-neutral-800),var(--color-surface));background-size:520px 100%;animation:shim 1.5s infinite linear;border-radius:9px}
+.dot3{width:6px;height:6px;border-radius:50%;background:var(--color-accent);animation:pulse 1.2s infinite}
+</style>
+</helmet>
+
+<div class="sb-wrap" ref="{{ setRoot }}">
+<header class="sb-head">
+  <p class="sb-kick">UI Mockup · tuulblox</p>
+  <h1 style="font-size:41px;letter-spacing:-.025em;line-height:1.08;margin:0 0 18px;max-width:840px">A quiet desktop window on your JobNimbus data</h1>
+  <p class="sb-note">A chromeless app window — launched via <code class="k">msedge --app</code> — that opens on your local backup DB in under a second. You picked the <b>chat-first</b> layout: the ask box is the centre of gravity, glanceable stats frame it, and richer charts sit below. Every screen here is one state of that same window.</p>
+  <p class="sb-note">Styled in <b>Nocturne</b> — dark ground, blurple accent, Inter. Numbers are <b>illustrative sample data</b> for the mock; the real app shows only what a SQL query returns, per your honesty rule. One warm amber is added purely for alerts (stale sync, overdue) since Nocturne is otherwise mono. Open <b>Tweaks</b> to flip the accent to Pro24 red or hide the assistant's query trace.</p>
+  <nav class="sb-legend">
+    <a class="sb-chip" href="#A"><b>A</b> Resting dashboard</a>
+    <a class="sb-chip" href="#B"><b>B</b> Assistant answering</a>
+    <a class="sb-chip" href="#C"><b>C</b> Tile drill-down</a>
+    <a class="sb-chip" href="#D"><b>D</b> Stale-sync warning</a>
+    <a class="sb-chip" href="#E"><b>E</b> Empty · honest “no data”</a>
+    <a class="sb-chip" href="#F"><b>F</b> First-launch loading</a>
+  </nav>
+</header>
+
+<!-- ══ STATE A — RESTING ══ -->
+<section class="sb-state" id="A">
+  <div class="sb-slabel"><span class="sb-badge">A</span><span class="sb-sname">Resting dashboard</span><span class="sb-smuted">— the home view, chat-first</span></div>
+  <div class="win">
+    <div class="titlebar">
+      <img src="assets/tuulblox-light.png" alt="tuulblox" style="height:16px;width:auto;display:block">
+      <span style="font-size:12.5px;color:var(--color-neutral-500);font-weight:500;letter-spacing:.03em">dashboard</span>
+      <span style="flex:1"></span>
+      <span class="pill" style="color:var(--color-accent-200);background:color-mix(in srgb,var(--color-accent) 12%,transparent);border:1px solid color-mix(in srgb,var(--color-accent) 34%,transparent)"><span style="width:7px;height:7px;border-radius:50%;background:var(--color-accent);box-shadow:0 0 8px var(--color-accent)"></span>Synced 4 min ago</span>
+      <span class="winctl"><svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor"><path d="M240,56v48a8,8,0,0,1-8,8H184a8,8,0,0,1,0-16H211.4L184.81,71.64l-.25-.24a80,80,0,1,0-1.67,114.78,8,8,0,0,1,11,11.63A95.44,95.44,0,0,1,128,224h-1.32A96,96,0,1,1,195.75,60L224,86.29V56a8,8,0,0,1,16,0Z"></path></svg></span>
+      <span class="vr" style="margin:0 3px"></span>
+      <span class="winctl"><svg width="12" height="12" viewBox="0 0 12 12" stroke="currentColor" stroke-width="1.2"><line x1="2" y1="6" x2="10" y2="6"></line></svg></span>
+      <span class="winctl"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2.4" y="2.4" width="7.2" height="7.2" rx="1"></rect></svg></span>
+      <span class="winctl"><svg width="12" height="12" viewBox="0 0 12 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><line x1="3" y1="3" x2="9" y2="9"></line><line x1="9" y1="3" x2="3" y2="9"></line></svg></span>
+    </div>
+    <div style="padding:22px 26px 26px;display:flex;flex-direction:column;gap:24px">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:13px">
+        <sc-for list="{{ stats }}" as="s" hint-placeholder-count="4">
+          <div class="stat"><div class="k">{{ s.k }}</div><div class="v">{{ s.v }}</div><div class="s">{{ s.sub }}</div></div>
+        </sc-for>
+      </div>
+      <div style="max-width:760px;margin:8px auto 6px;width:100%;text-align:center">
+        <h2 style="font-size:30px;letter-spacing:-.02em;margin:0 0 9px">Good morning, Khris.</h2>
+        <p style="margin:0 0 20px;color:var(--color-neutral-400);font-size:15px">Ask anything about your business — I answer from your live JobNimbus data.</p>
+        <div style="display:flex;align-items:center;gap:12px;background:var(--color-surface);border:1px solid var(--color-accent);border-radius:14px;padding:11px 12px 11px 18px;box-shadow:0 0 0 4px color-mix(in srgb,var(--color-accent) 13%,transparent),var(--shadow-md)">
+          <svg width="20" height="20" viewBox="0 0 256 256" fill="var(--color-accent)"><path d="M197.58,129.06,146,110l-19-51.62a15.92,15.92,0,0,0-29.88,0L78,110l-51.62,19a15.92,15.92,0,0,0,0,29.88L78,178l19,51.62a15.92,15.92,0,0,0,29.88,0L146,178l51.62-19a15.92,15.92,0,0,0,0-29.88ZM137,164.22a8,8,0,0,0-4.74,4.74L112,223.85,91.78,169A8,8,0,0,0,87,164.22L32.15,144,87,123.78A8,8,0,0,0,91.78,119L112,64.15,132.22,119a8,8,0,0,0,4.74,4.74L191.85,144Z"></path></svg>
+          <span style="flex:1;text-align:left;color:var(--color-neutral-500);font-size:16px">Ask about contacts, jobs, estimates, invoices…</span>
+          <span style="font-size:11px;color:var(--color-neutral-600);border:1px solid var(--color-divider);border-radius:5px;padding:2px 7px">⌘K</span>
+          <button class="btn btn-primary" style="height:50px;width:50px;padding:0;flex:none;border-radius:11px"><svg width="20" height="20" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"></path></svg></button>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:14px">
+          <sc-for list="{{ exampleChips }}" as="c" hint-placeholder-count="4">
+            <button class="btn btn-secondary exq">{{ c }}</button>
+          </sc-for>
+        </div>
+      </div>
+      <div style="display:flex;gap:14px">
+        <div class="panel" style="flex:1.15">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:8px"><div class="ptitle">Jobs by status</div><div style="font-size:12px;color:var(--color-neutral-500)">263 active</div></div>
+          <div style="display:flex;align-items:center;gap:24px">
+            <svg width="146" height="146" viewBox="0 0 140 140" style="flex:none">
+              <circle cx="70" cy="70" r="52" fill="none" stroke="var(--color-neutral-900)" stroke-width="20"></circle>
+              <g transform="rotate(-90 70 70)">
+                <sc-for list="{{ jobs }}" as="seg" hint-placeholder-count="6">
+                  <circle cx="70" cy="70" r="52" fill="none" stroke="{{ seg.color }}" stroke-width="20" stroke-dasharray="{{ seg.dash }}" stroke-dashoffset="{{ seg.offset }}"></circle>
+                </sc-for>
+              </g>
+              <text x="70" y="66" text-anchor="middle" fill="var(--color-text)" style="font:500 27px var(--font-heading)">263</text>
+              <text x="70" y="85" text-anchor="middle" fill="var(--color-neutral-500)" style="font:500 9px var(--font-body);letter-spacing:.14em">JOBS</text>
+            </svg>
+            <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;gap:10px 20px">
+              <sc-for list="{{ jobs }}" as="seg" hint-placeholder-count="6">
+                <div style="display:flex;align-items:center;gap:9px;font-size:13px">
+                  <svg width="9" height="9" style="flex:none"><rect width="9" height="9" rx="2" fill="{{ seg.color }}"></rect></svg>
+                  <span style="flex:1;color:var(--color-neutral-300)">{{ seg.label }}</span>
+                  <span style="font-weight:600;font-variant-numeric:tabular-nums">{{ seg.n }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+        <div class="panel" style="flex:1">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:16px"><div class="ptitle">Activity</div><div style="font-size:12px;color:var(--color-neutral-500)">last 7 days</div></div>
+          <div style="display:flex;gap:30px;margin-bottom:14px">
+            <div><div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-neutral-500);margin-bottom:6px">Today</div><div style="font-family:var(--font-heading);font-size:29px;line-height:1;font-variant-numeric:tabular-nums">{{ today }}</div></div>
+            <div><div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-neutral-500);margin-bottom:6px">Yesterday</div><div style="font-family:var(--font-heading);font-size:29px;line-height:1;color:var(--color-neutral-400);font-variant-numeric:tabular-nums">{{ yesterday }}</div></div>
+          </div>
+          <svg width="100%" height="60" viewBox="0 0 232 54" preserveAspectRatio="none">
+            <polyline points="{{ sparkArea }}" fill="var(--color-accent-900)" stroke="none" opacity=".55"></polyline>
+            <polyline points="{{ spark }}" fill="none" stroke="var(--color-accent-400)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline>
+          </svg>
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--color-neutral-600);margin-top:6px"><span>Mon</span><span>Sun</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ STATE B — ANSWERING ══ -->
+<section class="sb-state" id="B">
+  <div class="sb-slabel"><span class="sb-badge">B</span><span class="sb-sname">Assistant answering</span><span class="sb-smuted">— streaming · prose + table + collapsible SQL</span></div>
+  <div class="win">
+    <div class="titlebar">
+      <img src="assets/tuulblox-light.png" alt="tuulblox" style="height:16px;width:auto;display:block">
+      <span style="font-size:12.5px;color:var(--color-neutral-500);font-weight:500;letter-spacing:.03em">dashboard</span>
+      <span style="flex:1"></span>
+      <span class="pill" style="color:var(--color-accent-200);background:color-mix(in srgb,var(--color-accent) 12%,transparent);border:1px solid color-mix(in srgb,var(--color-accent) 34%,transparent)"><span style="width:7px;height:7px;border-radius:50%;background:var(--color-accent);box-shadow:0 0 8px var(--color-accent)"></span>Synced 4 min ago</span>
+      <span class="winctl"><svg width="12" height="12" viewBox="0 0 12 12" stroke="currentColor" stroke-width="1.2"><line x1="2" y1="6" x2="10" y2="6"></line></svg></span>
+      <span class="winctl"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2.4" y="2.4" width="7.2" height="7.2" rx="1"></rect></svg></span>
+      <span class="winctl"><svg width="12" height="12" viewBox="0 0 12 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><line x1="3" y1="3" x2="9" y2="9"></line><line x1="9" y1="3" x2="3" y2="9"></line></svg></span>
+    </div>
+    <div class="ctxbar">
+      <span><b>$412,900</b> estimates open</span><span class="vr"></span>
+      <span><b>$128,450</b> invoices due</span><span class="vr"></span>
+      <span><b>34</b> tasks this week</span>
+      <span style="flex:1"></span>
+      <span style="color:var(--color-neutral-600)">263 jobs · 848 contacts</span>
+    </div>
+    <div style="padding:24px 26px 8px;min-height:470px">
+      <div style="display:flex;justify-content:flex-end;margin-bottom:22px"><div style="max-width:70%;background:var(--color-surface);border:1px solid var(--color-divider);border-radius:13px 13px 4px 13px;padding:11px 16px;font-size:14.5px">How many estimates are still open, and what are they worth?</div></div>
+      <div style="display:flex;gap:14px">
+        <span class="avatar"><svg width="17" height="17" viewBox="0 0 256 256" fill="currentColor"><path d="M197.58,129.06,146,110l-19-51.62a15.92,15.92,0,0,0-29.88,0L78,110l-51.62,19a15.92,15.92,0,0,0,0,29.88L78,178l19,51.62a15.92,15.92,0,0,0,29.88,0L146,178l51.62-19a15.92,15.92,0,0,0,0-29.88ZM137,164.22a8,8,0,0,0-4.74,4.74L112,223.85,91.78,169A8,8,0,0,0,87,164.22L32.15,144,87,123.78A8,8,0,0,0,91.78,119L112,64.15,132.22,119a8,8,0,0,0,4.74,4.74L191.85,144Z"></path></svg></span>
+        <div style="flex:1;min-width:0">
+          <sc-if value="{{ showThinking }}" hint-placeholder-val="{{ true }}">
+            <div class="toolchip" style="margin-bottom:14px">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-300)" stroke-width="1.6"><ellipse cx="12" cy="5.5" rx="7" ry="2.6"></ellipse><path d="M5 5.5v13c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6v-13"></path><path d="M5 12c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6"></path></svg>
+              query_crm <span style="color:var(--color-neutral-600)">·</span> <span style="color:var(--color-accent-300)">87 rows</span> <span style="color:var(--color-neutral-600)">· 1.8s</span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,12 10,18 20,6"></polyline></svg>
+            </div>
+          </sc-if>
+          <p style="margin:0 0 16px;font-size:15px;line-height:1.6;color:var(--color-neutral-200);max-width:640px">You have <b style="color:var(--color-text)">87 open estimates</b> worth <b style="color:var(--color-text)">$412,900</b> in total. The five largest add up to <b style="color:var(--color-text)">$195,400</b> — Cedar Ridge HOA's is the biggest at $48,200, open 6 days. These are the rows the query returned, nothing estimated.<span class="caret"></span></p>
+          <table class="table" style="max-width:660px">
+            <thead><tr><th>Estimate</th><th>Contact</th><th style="text-align:right">Value</th><th style="text-align:right">Age</th></tr></thead>
+            <tbody>
+              <sc-for list="{{ answerRows }}" as="r" hint-placeholder-count="5">
+                <tr><td style="color:var(--color-neutral-300);font-variant-numeric:tabular-nums">{{ r.num }}</td><td style="font-weight:500">{{ r.name }}</td><td style="text-align:right;font-variant-numeric:tabular-nums">{{ r.total }}</td><td style="text-align:right;color:var(--color-neutral-500)">{{ r.age }}</td></tr>
+              </sc-for>
+            </tbody>
+          </table>
+          <details style="margin-top:14px;max-width:660px">
+            <summary style="cursor:pointer;display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--color-neutral-400)"><svg width="13" height="13" viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path></svg>Show the query it ran</summary>
+            <pre class="sql" style="margin-top:10px">SELECT number, name, est_total,
+       (strftime('%s','now') - date_created)/86400 AS age_days
+FROM   estimates
+WHERE  status_name IN ('Draft','Estimate Sent','Pending')
+ORDER  BY est_total DESC
+LIMIT  200;</pre>
+          </details>
+        </div>
+      </div>
+    </div>
+    <div class="composer">
+      <div style="flex:1;display:flex;align-items:center;gap:10px;background:var(--color-surface);border:1px solid var(--color-divider);border-radius:11px;padding:11px 15px;color:var(--color-neutral-500);font-size:14px"><svg width="16" height="16" viewBox="0 0 256 256" fill="var(--color-neutral-500)"><path d="M197.58,129.06,146,110l-19-51.62a15.92,15.92,0,0,0-29.88,0L78,110l-51.62,19a15.92,15.92,0,0,0,0,29.88L78,178l19,51.62a15.92,15.92,0,0,0,29.88,0L146,178l51.62-19a15.92,15.92,0,0,0,0-29.88ZM137,164.22a8,8,0,0,0-4.74,4.74L112,223.85,91.78,169A8,8,0,0,0,87,164.22L32.15,144,87,123.78A8,8,0,0,0,91.78,119L112,64.15,132.22,119a8,8,0,0,0,4.74,4.74L191.85,144Z"></path></svg>Ask a follow-up…</div>
+      <button class="btn btn-primary" style="height:46px;width:46px;padding:0;flex:none;border-radius:11px"><svg width="19" height="19" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"></path></svg></button>
+    </div>
+  </div>
+</section>
+
+<!-- ══ STATE C — DRILL-DOWN ══ -->
+<section class="sb-state" id="C">
+  <div class="sb-slabel"><span class="sb-badge">C</span><span class="sb-sname">Tile drill-down</span><span class="sb-smuted">— click a stat → the rows behind it</span></div>
+  <div class="win">
+    <div class="titlebar">
+      <img src="assets/tuulblox-light.png" alt="tuulblox" style="height:16px;width:auto;display:block">
+      <span style="font-size:12.5px;color:var(--color-neutral-500);font-weight:500;letter-spacing:.03em">dashboard</span>
+      <span style="flex:1"></span>
+      <span class="pill" style="color:var(--color-accent-200);background:color-mix(in srgb,var(--color-accent) 12%,transparent);border:1px solid color-mix(in srgb,var(--color-accent) 34%,transparent)"><span style="width:7px;height:7px;border-radius:50%;background:var(--color-accent);box-shadow:0 0 8px var(--color-accent)"></span>Synced 4 min ago</span>
+      <span class="winctl"><svg width="12" height="12" viewBox="0 0 12 12" stroke="currentColor" stroke-width="1.2"><line x1="2" y1="6" x2="10" y2="6"></line></svg></span>
+      <span class="winctl"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2.4" y="2.4" width="7.2" height="7.2" rx="1"></rect></svg></span>
+      <span class="winctl"><svg width="12" height="12" viewBox="0 0 12 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><line x1="3" y1="3" x2="9" y2="9"></line><line x1="9" y1="3" x2="3" y2="9"></line></svg></span>
+    </div>
+    <div style="padding:22px 26px 26px">
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:4px">
+        <button class="btn btn-secondary" style="padding:8px 11px"><svg width="15" height="15" viewBox="0 0 256 256" fill="currentColor"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"></path></svg></button>
+        <div style="flex:1">
+          <div style="font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--color-accent);margin-bottom:5px">Drill-down · Invoices</div>
+          <h3 style="margin:0;font-size:22px;letter-spacing:-.015em">Invoices with balance due</h3>
+        </div>
+        <div style="text-align:right"><div style="font-family:var(--font-heading);font-size:26px;line-height:1;font-variant-numeric:tabular-nums">$128,450</div><div style="font-size:12px;color:var(--color-neutral-500);margin-top:5px">41 invoices · 12 overdue</div></div>
+      </div>
+      <table class="table" style="margin-top:16px">
+        <thead><tr><th>Invoice</th><th>Contact</th><th style="text-align:right">Balance due</th><th style="text-align:right">Invoiced</th><th>Status</th><th>Timing</th></tr></thead>
+        <tbody>
+          <sc-for list="{{ drillRows }}" as="r" hint-placeholder-count="6">
+            <tr>
+              <td style="color:var(--color-neutral-300);font-variant-numeric:tabular-nums">{{ r.num }}</td>
+              <td style="font-weight:500">{{ r.name }}</td>
+              <td style="text-align:right;font-variant-numeric:tabular-nums">{{ r.due }}</td>
+              <td style="text-align:right;color:var(--color-neutral-500);font-variant-numeric:tabular-nums">{{ r.invoiced }}</td>
+              <td>
+                <sc-if value="{{ r.warn }}" hint-placeholder-val="{{ true }}"><span class="warntag">{{ r.tag }}</span></sc-if>
+                <sc-if value="{{ r.ok }}" hint-placeholder-val="{{ false }}"><span class="tag tag-neutral">{{ r.tag }}</span></sc-if>
+              </td>
+              <td style="color:var(--color-neutral-400);font-size:13px">{{ r.age }}</td>
+            </tr>
+          </sc-for>
+        </tbody>
+      </table>
+      <div style="display:flex;align-items:center;gap:8px;margin-top:16px;font-size:12.5px;color:var(--color-neutral-500)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="5.5" rx="7" ry="2.6"></ellipse><path d="M5 5.5v13c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6v-13"></path><path d="M5 12c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6"></path></svg>
+        Read live from <code class="k">tuultech-jobnimbus.db</code> · click a row to open the record in JobNimbus.
+      </div>
+    </div>
+    <div class="composer">
+      <span style="flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:9px;background:color-mix(in srgb,var(--warn,#e0a54a) 18%,transparent);color:var(--warn,#e0a54a)"><svg width="19" height="19" viewBox="0 0 256 256" fill="currentColor"><path d="M236.8,188.09,149.35,36.22a24.76,24.76,0,0,0-42.7,0L19.2,188.09a23.51,23.51,0,0,0,0,23.72A24.35,24.35,0,0,0,40.55,224h174.9a24.35,24.35,0,0,0,21.33-12.19A23.51,23.51,0,0,0,236.8,188.09ZM120,104a8,8,0,0,1,16,0v40a8,8,0,0,1-16,0Zm8,88a12,12,0,1,1,12-12A12,12,0,0,1,128,192Z"></path></svg></span>
+      <div style="flex:1">
+        <div style="font-size:13.5px;font-weight:500">Follow up on 12 overdue invoices · <span style="color:var(--warn,#e0a54a)">$54,200</span></div>
+        <div style="font-size:12px;color:var(--color-neutral-500)">Drafts a payment reminder to each contact from your template — you approve before anything sends.</div>
+      </div>
+      <div style="display:inline-flex;border:1px solid var(--color-divider);border-radius:8px;overflow:hidden;flex:none">
+        <span style="padding:6px 12px;font-size:12px;color:var(--color-accent);box-shadow:inset 0 0 0 1px var(--color-accent)">Gentle</span>
+        <span style="padding:6px 12px;font-size:12px;color:var(--color-neutral-400)">Firm</span>
+      </div>
+      <button class="btn btn-secondary">Preview</button>
+      <button class="btn btn-primary"><svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor" style="margin-right:-1px"><path d="M227.32,28.68a16,16,0,0,0-15.66-4.08l-.15,0L19.57,82.84a16,16,0,0,0-2.42,29.84l85.62,40.55,40.55,85.62A15.86,15.86,0,0,0,143.13,248h.79a16,16,0,0,0,14.61-11.34L227.4,44.5A16,16,0,0,0,227.32,28.68ZM143.83,231.85l-.05.14,0-.07-40-84.48,48.36-48.36a8,8,0,0,0-11.31-11.31L140.06,136,55.62,96l-.07,0,.14-.05L224,32Z"></path></svg>Follow up · 12</button>
+    </div>
+  </div>
+</section>
+
+<!-- ══ STATE D — STALE ══ -->
+<section class="sb-state" id="D">
+  <div class="sb-slabel"><span class="sb-badge">D</span><span class="sb-sname">Stale-sync warning</span><span class="sb-smuted">— the sync stalled; say so loudly</span></div>
+  <div class="win">
+    <div class="titlebar">
+      <img src="assets/tuulblox-light.png" alt="tuulblox" style="height:16px;width:auto;display:block">
+      <span style="font-size:12.5px;color:var(--color-neutral-500);font-weight:500;letter-spacing:.03em">dashboard</span>
+      <span style="flex:1"></span>
+      <span class="pill" style="color:var(--warn,#e0a54a);background:color-mix(in srgb,var(--warn,#e0a54a) 14%,transparent);border:1px solid color-mix(in srgb,var(--warn,#e0a54a) 45%,transparent)"><span style="width:7px;height:7px;border-radius:50%;background:var(--warn,#e0a54a);box-shadow:0 0 8px var(--warn,#e0a54a)"></span>Synced 52 min ago</span>
+      <span class="winctl"><svg width="12" height="12" viewBox="0 0 12 12" stroke="currentColor" stroke-width="1.2"><line x1="2" y1="6" x2="10" y2="6"></line></svg></span>
+      <span class="winctl"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2.4" y="2.4" width="7.2" height="7.2" rx="1"></rect></svg></span>
+      <span class="winctl"><svg width="12" height="12" viewBox="0 0 12 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><line x1="3" y1="3" x2="9" y2="9"></line><line x1="9" y1="3" x2="3" y2="9"></line></svg></span>
+    </div>
+    <div style="padding:20px 26px 26px;display:flex;flex-direction:column;gap:20px">
+      <div style="display:flex;align-items:center;gap:15px;padding:15px 20px;background:color-mix(in srgb,var(--warn,#e0a54a) 11%,transparent);border:1px solid color-mix(in srgb,var(--warn,#e0a54a) 38%,transparent);border-radius:12px">
+        <span style="flex:none;display:grid;place-items:center;width:36px;height:36px;border-radius:10px;background:color-mix(in srgb,var(--warn,#e0a54a) 20%,transparent);color:var(--warn,#e0a54a)"><svg width="21" height="21" viewBox="0 0 256 256" fill="currentColor"><path d="M236.8,188.09,149.35,36.22a24.76,24.76,0,0,0-42.7,0L19.2,188.09a23.51,23.51,0,0,0,0,23.72A24.35,24.35,0,0,0,40.55,224h174.9a24.35,24.35,0,0,0,21.33-12.19A23.51,23.51,0,0,0,236.8,188.09ZM120,104a8,8,0,0,1,16,0v40a8,8,0,0,1-16,0Zm8,88a12,12,0,1,1,12-12A12,12,0,0,1,128,192Z"></path></svg></span>
+        <div style="flex:1"><div style="font-weight:600;font-size:14.5px">Your data is 52 minutes old — the 15-minute sync may have stalled.</div><div style="font-size:13px;color:var(--color-neutral-400);margin-top:3px">Last successful sync 12:58 PM. The numbers below are from that snapshot — treat them with caution.</div></div>
+        <button class="btn" style="border:1px solid var(--warn,#e0a54a);color:var(--warn,#e0a54a)">Refresh now</button>
+        <button class="btn btn-secondary">Check sync task</button>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:13px;opacity:.82">
+        <sc-for list="{{ stats }}" as="s" hint-placeholder-count="4">
+          <div class="stat"><div class="k">{{ s.k }}</div><div class="v">{{ s.v }}</div><div class="s" style="display:flex;align-items:center;gap:6px"><span style="width:5px;height:5px;border-radius:50%;background:var(--warn,#e0a54a)"></span>as of 12:58 PM</div></div>
+        </sc-for>
+      </div>
+      <div class="panel" style="display:flex;align-items:center;gap:16px">
+        <span style="flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:9px;background:var(--color-neutral-900);color:var(--color-neutral-400)"><svg width="18" height="18" viewBox="0 0 256 256" fill="currentColor"><path d="M240,56v48a8,8,0,0,1-8,8H184a8,8,0,0,1,0-16H211.4L184.81,71.64l-.25-.24a80,80,0,1,0-1.67,114.78,8,8,0,0,1,11,11.63A95.44,95.44,0,0,1,128,224h-1.32A96,96,0,1,1,195.75,60L224,86.29V56a8,8,0,0,1,16,0Z"></path></svg></span>
+        <div style="flex:1"><div style="font-size:14px;font-weight:500">Ask is paused while data is stale</div><div style="font-size:13px;color:var(--color-neutral-500);margin-top:2px">Refresh first so the assistant never answers from an old snapshot — the honesty rule, enforced.</div></div>
+        <div style="display:flex;align-items:center;gap:8px;color:var(--color-neutral-500);font-size:12.5px"><span class="dot3"></span><span class="dot3" style="animation-delay:.2s"></span><span class="dot3" style="animation-delay:.4s"></span> retrying sync</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ STATE E — EMPTY ══ -->
+<section class="sb-state" id="E">
+  <div class="sb-slabel"><span class="sb-badge">E</span><span class="sb-sname">Empty · honest “no data”</span><span class="sb-smuted">— the query ran; nothing matched; no number invented</span></div>
+  <div class="win">
+    <div class="titlebar">
+      <img src="assets/tuulblox-light.png" alt="tuulblox" style="height:16px;width:auto;display:block">
+      <span style="font-size:12.5px;color:var(--color-neutral-500);font-weight:500;letter-spacing:.03em">dashboard</span>
+      <span style="flex:1"></span>
+      <span class="pill" style="color:var(--color-accent-200);background:color-mix(in srgb,var(--color-accent) 12%,transparent);border:1px solid color-mix(in srgb,var(--color-accent) 34%,transparent)"><span style="width:7px;height:7px;border-radius:50%;background:var(--color-accent);box-shadow:0 0 8px var(--color-accent)"></span>Synced 4 min ago</span>
+      <span class="winctl"><svg width="12" height="12" viewBox="0 0 12 12" stroke="currentColor" stroke-width="1.2"><line x1="2" y1="6" x2="10" y2="6"></line></svg></span>
+      <span class="winctl"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2.4" y="2.4" width="7.2" height="7.2" rx="1"></rect></svg></span>
+      <span class="winctl"><svg width="12" height="12" viewBox="0 0 12 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><line x1="3" y1="3" x2="9" y2="9"></line><line x1="9" y1="3" x2="3" y2="9"></line></svg></span>
+    </div>
+    <div class="ctxbar">
+      <span><b>$412,900</b> estimates open</span><span class="vr"></span>
+      <span><b>$128,450</b> invoices due</span><span class="vr"></span>
+      <span><b>34</b> tasks this week</span>
+      <span style="flex:1"></span>
+      <span style="color:var(--color-neutral-600)">263 jobs · 848 contacts</span>
+    </div>
+    <div style="padding:24px 26px 8px;min-height:430px">
+      <div style="display:flex;justify-content:flex-end;margin-bottom:22px"><div style="max-width:70%;background:var(--color-surface);border:1px solid var(--color-divider);border-radius:13px 13px 4px 13px;padding:11px 16px;font-size:14.5px">How many jobs are in “Warranty” status?</div></div>
+      <div style="display:flex;gap:14px">
+        <span class="avatar"><svg width="17" height="17" viewBox="0 0 256 256" fill="currentColor"><path d="M197.58,129.06,146,110l-19-51.62a15.92,15.92,0,0,0-29.88,0L78,110l-51.62,19a15.92,15.92,0,0,0,0,29.88L78,178l19,51.62a15.92,15.92,0,0,0,29.88,0L146,178l51.62-19a15.92,15.92,0,0,0,0-29.88ZM137,164.22a8,8,0,0,0-4.74,4.74L112,223.85,91.78,169A8,8,0,0,0,87,164.22L32.15,144,87,123.78A8,8,0,0,0,91.78,119L112,64.15,132.22,119a8,8,0,0,0,4.74,4.74L191.85,144Z"></path></svg></span>
+        <div style="flex:1;min-width:0">
+          <sc-if value="{{ showThinking }}" hint-placeholder-val="{{ true }}">
+            <div class="toolchip" style="margin-bottom:14px">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-300)" stroke-width="1.6"><ellipse cx="12" cy="5.5" rx="7" ry="2.6"></ellipse><path d="M5 5.5v13c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6v-13"></path><path d="M5 12c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6"></path></svg>
+              query_crm <span style="color:var(--color-neutral-600)">·</span> <span style="color:var(--warn,#e0a54a)">0 rows</span> <span style="color:var(--color-neutral-600)">· 0.4s</span>
+            </div>
+          </sc-if>
+          <p style="margin:0 0 16px;font-size:15px;line-height:1.6;color:var(--color-neutral-200);max-width:640px"><b style="color:var(--color-text)">None.</b> No jobs are in a “Warranty” status — the query returned 0 rows. Your 263 jobs sit across six statuses: Complete (71), Lead (62), In progress (41), Estimating (38), On hold (27) and Scheduled (24). I'm only reporting what came back; I won't turn a zero into anything else.</p>
+          <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:11px;padding:34px;color:var(--color-neutral-500);border:1px dashed var(--color-neutral-800);border-radius:12px;background:color-mix(in srgb,var(--color-surface) 45%,transparent);max-width:660px">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--color-neutral-600)" stroke-width="1.4"><ellipse cx="12" cy="5.5" rx="7" ry="2.6"></ellipse><path d="M5 5.5v13c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6v-13"></path><path d="M5 12c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6"></path></svg>
+            <div style="font-size:14px;color:var(--color-neutral-300)">0 rows returned</div>
+            <div style="font-size:12.5px;color:var(--color-neutral-600);text-align:center;max-width:340px">The query is valid and ran fine — there simply isn't a matching record.</div>
+          </div>
+          <details style="margin-top:14px;max-width:660px">
+            <summary style="cursor:pointer;display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--color-neutral-400)"><svg width="13" height="13" viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path></svg>Show the query it ran</summary>
+            <pre class="sql" style="margin-top:10px">SELECT number, name, status_name
+FROM   jobs
+WHERE  status_name = 'Warranty';</pre>
+          </details>
+        </div>
+      </div>
+    </div>
+    <div class="composer">
+      <div style="flex:1;display:flex;align-items:center;gap:10px;background:var(--color-surface);border:1px solid var(--color-divider);border-radius:11px;padding:11px 15px;color:var(--color-neutral-500);font-size:14px"><svg width="16" height="16" viewBox="0 0 256 256" fill="var(--color-neutral-500)"><path d="M197.58,129.06,146,110l-19-51.62a15.92,15.92,0,0,0-29.88,0L78,110l-51.62,19a15.92,15.92,0,0,0,0,29.88L78,178l19,51.62a15.92,15.92,0,0,0,29.88,0L146,178l51.62-19a15.92,15.92,0,0,0,0-29.88ZM137,164.22a8,8,0,0,0-4.74,4.74L112,223.85,91.78,169A8,8,0,0,0,87,164.22L32.15,144,87,123.78A8,8,0,0,0,91.78,119L112,64.15,132.22,119a8,8,0,0,0,4.74,4.74L191.85,144Z"></path></svg>Ask a follow-up…</div>
+      <button class="btn btn-primary" style="height:46px;width:46px;padding:0;flex:none;border-radius:11px"><svg width="19" height="19" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"></path></svg></button>
+    </div>
+  </div>
+</section>
+
+<!-- ══ STATE F — LOADING ══ -->
+<section class="sb-state" id="F">
+  <div class="sb-slabel"><span class="sb-badge">F</span><span class="sb-sname">First-launch loading</span><span class="sb-smuted">— opens in under a second</span></div>
+  <div class="win">
+    <div class="titlebar">
+      <img src="assets/tuulblox-light.png" alt="tuulblox" style="height:16px;width:auto;display:block">
+      <span style="font-size:12.5px;color:var(--color-neutral-500);font-weight:500;letter-spacing:.03em">dashboard</span>
+      <span style="flex:1"></span>
+      <span class="pill" style="color:var(--color-neutral-400);background:var(--color-neutral-900);border:1px solid var(--color-divider)"><span class="dot3"></span>Connecting…</span>
+      <span class="winctl"><svg width="12" height="12" viewBox="0 0 12 12" stroke="currentColor" stroke-width="1.2"><line x1="2" y1="6" x2="10" y2="6"></line></svg></span>
+      <span class="winctl"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2.4" y="2.4" width="7.2" height="7.2" rx="1"></rect></svg></span>
+      <span class="winctl"><svg width="12" height="12" viewBox="0 0 12 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><line x1="3" y1="3" x2="9" y2="9"></line><line x1="9" y1="3" x2="3" y2="9"></line></svg></span>
+    </div>
+    <div style="padding:22px 26px 30px">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:13px">
+        <div class="skel" style="height:80px"></div><div class="skel" style="height:80px"></div><div class="skel" style="height:80px"></div><div class="skel" style="height:80px"></div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;padding:64px 0 30px;text-align:center">
+        <span style="display:grid;place-items:center;width:58px;height:58px;border-radius:16px;background:var(--color-accent-800);color:var(--color-accent-200);animation:pulse 1.5s infinite"><svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1,12 6,12 9,5 13,19 16,12 23,12"></polyline></svg></span>
+        <div style="font-family:var(--font-heading);font-size:19px">Opening your dashboard…</div>
+        <div style="font-size:13.5px;color:var(--color-neutral-500);display:flex;align-items:center;gap:9px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="5.5" rx="7" ry="2.6"></ellipse><path d="M5 5.5v13c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6v-13"></path><path d="M5 12c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6"></path></svg>Reading <code class="k">tuultech-jobnimbus.db</code> (read-only)</div>
+        <div style="display:flex;gap:14px;margin-top:6px;font-size:12px;color:var(--color-neutral-600)">
+          <span style="display:flex;align-items:center;gap:6px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,12 10,18 20,6"></polyline></svg>848 contacts</span>
+          <span style="display:flex;align-items:center;gap:6px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,12 10,18 20,6"></polyline></svg>263 jobs</span>
+          <span style="display:flex;align-items:center;gap:6px"><span class="dot3"></span>546 estimates</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1400,&quot;height&quot;:900},&quot;brand&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;Nocturne (blurple)&quot;,&quot;options&quot;:[&quot;Nocturne (blurple)&quot;,&quot;Pro24 (contracting red)&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Brand&quot;},&quot;alertColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#e0a54a&quot;,&quot;options&quot;:[&quot;#e0a54a&quot;,&quot;#d98829&quot;,&quot;#e05a3c&quot;,&quot;#caa15a&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Brand&quot;},&quot;showThinking&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Assistant&quot;}}">
+class Component extends DCLogic {
+  componentDidMount(){ this.applyTheme(); }
+  componentDidUpdate(){ this.applyTheme(); }
+  applyTheme(){
+    const el = this.root; if(!el) return;
+    const noct = {'--color-accent':'#9184d9','--color-accent-100':'#f5f4ff','--color-accent-200':'#e7e5fe','--color-accent-300':'#d2cefd','--color-accent-400':'#b5abfc','--color-accent-500':'#968ae0','--color-accent-600':'#796cbf','--color-accent-800':'#423a6a','--color-accent-900':'#2b2741'};
+    const pro  = {'--color-accent':'#C0161B','--color-accent-100':'#fdeceb','--color-accent-200':'#f8cdcb','--color-accent-300':'#efa3a0','--color-accent-400':'#e2645f','--color-accent-500':'#cf2f2f','--color-accent-600':'#9d1418','--color-accent-800':'#521416','--color-accent-900':'#33100f'};
+    const usePro = String(this.props.brand||'').toLowerCase().includes('pro24');
+    const map = usePro ? pro : noct;
+    Object.entries(map).forEach(([k,v]) => el.style.setProperty(k,v));
+    el.style.setProperty('--warn', this.props.alertColor || '#e0a54a');
+  }
+  renderVals(){
+    const jobs = [
+      {label:'Complete',   n:71, color:'var(--color-accent-500)'},
+      {label:'Lead',       n:62, color:'var(--color-accent-400)'},
+      {label:'In progress',n:41, color:'var(--color-accent-600)'},
+      {label:'Estimating', n:38, color:'var(--color-accent-300)'},
+      {label:'On hold',    n:27, color:'var(--color-neutral-600)'},
+      {label:'Scheduled',  n:24, color:'var(--color-neutral-800)'},
+    ];
+    const jobsTotal = jobs.reduce((a,b)=>a+b.n,0);
+    const CIRC = 2 * Math.PI * 52;
+    let acc = 0;
+    const donut = jobs.map(j => {
+      const f = j.n / jobsTotal;
+      const seg = { label:j.label, n:j.n, color:j.color,
+        dash:(f*CIRC).toFixed(2)+' '+(CIRC-f*CIRC).toFixed(2),
+        offset:(-acc*CIRC).toFixed(2) };
+      acc += f; return seg;
+    });
+    const act = [231,268,205,312,289,177,214];
+    const mn = Math.min(...act), mx = Math.max(...act), W=232, H=54, p=5;
+    const pts = act.map((v,i) => {
+      const x = (i/(act.length-1))*(W-p*2)+p;
+      const y = H - p - ((v-mn)/(mx-mn))*(H-p*2);
+      return x.toFixed(1)+','+y.toFixed(1);
+    });
+    const spark = pts.join(' ');
+    return {
+      setRoot: (el) => { this.root = el; },
+      showThinking: this.props.showThinking !== false,
+      stats: [
+        {k:'Estimates outstanding', v:'$412,900', sub:'87 open of 546'},
+        {k:'Invoices with balance', v:'$128,450', sub:'41 unpaid · 12 overdue'},
+        {k:'Tasks due this week',   v:'34',       sub:'8 already overdue'},
+        {k:'New contacts',          v:'19',       sub:'this week · 63 this month'},
+      ],
+      jobs: donut, jobsTotal,
+      spark, sparkArea: p+','+H+' '+spark+' '+(W-p)+','+H,
+      today: 214, yesterday: 389,
+      exampleChips: [
+        'How many estimates are still open?',
+        'Who did we last talk to at Cedar Ridge HOA?',
+        'Which invoices are overdue?',
+        'New contacts this week vs last?',
+      ],
+      answerRows: [
+        {num:'EST-2087', name:'Cedar Ridge HOA',        total:'$48,200', age:'6 days'},
+        {num:'EST-2069', name:'Whitfield Roofing Co.',  total:'$41,750', age:'11 days'},
+        {num:'EST-2044', name:'Northgate Facilities',   total:'$39,400', age:'3 days'},
+        {num:'EST-2081', name:'Marcus Whitfield',       total:'$34,900', age:'19 days'},
+        {num:'EST-2058', name:'Lakeside Property Mgmt', total:'$31,150', age:'8 days'},
+      ],
+      drillRows: [
+        {num:'#1042', name:'Marcus Whitfield',       due:'$12,400', invoiced:'$18,900', age:'34 days overdue', tag:'Overdue',  warn:true,  ok:false},
+        {num:'#1015', name:'Northgate Facilities',   due:'$9,850',  invoiced:'$22,100', age:'21 days overdue', tag:'Overdue',  warn:true,  ok:false},
+        {num:'#1051', name:'Cedar Ridge HOA',        due:'$8,600',  invoiced:'$8,600',  age:'due in 4 days',   tag:'Due soon', warn:false, ok:true},
+        {num:'#1049', name:'Lakeside Property Mgmt', due:'$7,200',  invoiced:'$15,400', age:'due in 9 days',   tag:'Open',     warn:false, ok:true},
+        {num:'#1033', name:'Beacon Hill Restoration',due:'$6,400',  invoiced:'$11,900', age:'due in 12 days',  tag:'Open',     warn:false, ok:true},
+        {num:'#1057', name:'Whitfield Roofing Co.',  due:'$5,900',  invoiced:'$5,900',  age:'due in 2 days',   tag:'Due soon', warn:false, ok:true},
+      ],
+    };
+  }
+}
+</script>
+<script src="_ds/periwinkle-toggle.js"></script>
+</body>
+</html>

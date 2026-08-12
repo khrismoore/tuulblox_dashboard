@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>tuulblox — Map</title>
+<link rel="stylesheet" href="_ds/industry-c6b5d4a3-3b5b-4356-a2ab-880725d1b7b0/styles.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous"></script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#eaeaec;color:var(--color-text);
+  background-image:linear-gradient(var(--color-divider) 1px,transparent 1px),linear-gradient(90deg,var(--color-divider) 1px,transparent 1px);
+  background-size:34px 34px;background-position:-1px -1px}
+a{color:var(--color-accent);text-decoration:none}
+.page{padding:52px 60px 90px}
+.kick{font-family:var(--font-heading);font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--color-accent);margin:0 0 12px}
+.head{max-width:1000px;margin:0 auto}
+.h1{font-family:var(--font-heading);font-size:46px;letter-spacing:-.01em;line-height:1;margin:0 0 16px;max-width:840px;text-transform:uppercase}
+.note{color:color-mix(in srgb,var(--color-text) 70%,transparent);font-size:15px;line-height:1.6;max-width:760px;margin:0}
+.note b{color:var(--color-text);font-weight:700}
+.win{width:1280px;margin:30px auto 0;background:var(--color-bg);border:1px solid var(--color-divider);box-shadow:var(--shadow-lg)}
+.titlebar{height:50px;display:flex;align-items:center;gap:11px;padding:0 8px 0 18px;border-bottom:1px solid var(--color-divider);background:var(--color-surface)}
+.winctl{width:40px;height:32px;display:grid;place-items:center;color:var(--color-neutral-600)}
+.winctl:hover{background:color-mix(in srgb,var(--color-text) 7%,transparent)}
+.pill{display:inline-flex;align-items:center;gap:8px;font-size:12px;padding:5px 11px;border:1px solid var(--color-accent);color:var(--color-accent-700);letter-spacing:.02em}
+.tabs{display:flex;align-items:center;gap:2px;padding:6px 12px;border-bottom:1px solid var(--color-divider);background:var(--color-bg)}
+.tab{display:inline-flex;align-items:center;gap:7px;padding:9px 13px;font-family:var(--font-heading);font-size:14px;letter-spacing:.02em;color:var(--color-neutral-700);white-space:nowrap;text-transform:uppercase}
+.tab:hover{background:color-mix(in srgb,var(--color-text) 6%,transparent);color:var(--color-text)}
+.tab-on{color:var(--color-accent);box-shadow:inset 0 -2px 0 var(--color-accent)}
+.maparea{display:flex;height:640px}
+#map{flex:1;background:#dfe3e6}
+#map.adding{cursor:crosshair}
+.leaflet-tile{filter:grayscale(.4) contrast(.92) brightness(1.02)}
+.leaflet-container{background:#dfe3e6;font-family:var(--font-body)}
+.leaflet-control-attribution{background:rgba(242,242,243,.82)!important;color:var(--color-neutral-600)!important;font-size:10px}
+.leaflet-control-attribution a{color:var(--color-neutral-700)!important}
+.leaflet-bar a{background:var(--color-surface);color:var(--color-text);border-bottom-color:var(--color-divider);border-radius:0}
+.leaflet-bar a:hover{background:var(--color-neutral-200)}
+.leaflet-bar{border-radius:0;border:1px solid var(--color-divider)}
+.pin{display:block;width:13px;height:13px;background:var(--c);border:1px solid var(--color-text);box-shadow:0 1px 3px rgba(29,31,32,.35);cursor:pointer;transition:transform .12s}
+.pin:hover{transform:scale(1.3)}
+.pin-temp{outline:2px solid var(--color-accent);outline-offset:2px;animation:tp 1s ease-in-out infinite}
+@keyframes tp{0%,100%{outline-offset:2px;opacity:1}50%{outline-offset:5px;opacity:.6}}
+.leaflet-popup-content-wrapper{background:var(--color-bg);color:var(--color-text);border-radius:0;border:1px solid var(--color-divider);box-shadow:var(--shadow-md)}
+.leaflet-popup-tip{background:var(--color-bg);border:1px solid var(--color-divider)}
+.leaflet-popup-content{margin:12px 14px;font-family:var(--font-body);font-size:13px;line-height:1.5}
+.pp-name{font-family:var(--font-heading);font-weight:600;font-size:15px}
+.pp-meta{color:var(--color-neutral-700);font-size:12px;margin-top:1px}
+.pp-val{font-family:var(--font-heading);font-weight:600;color:var(--color-accent-700);margin-top:5px}
+.addform .af-t{font-family:var(--font-heading);font-weight:600;font-size:14px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px}
+.addform .input{margin-bottom:7px}
+.addform .af-row{display:flex;gap:6px;margin-top:3px}
+.addform .af-row .btn{flex:1;padding:6px 8px;font-size:13px}
+.side{flex:none;width:322px;border-left:1px solid var(--color-divider);display:flex;flex-direction:column;background:var(--color-bg)}
+.side-h{padding:15px 18px;border-bottom:1px solid var(--color-divider)}
+.side-t{font-family:var(--font-heading);font-weight:600;font-size:17px;text-transform:uppercase;letter-spacing:.02em}
+.chips{display:flex;flex-wrap:wrap;gap:6px;padding:12px 18px;border-bottom:1px solid var(--color-divider)}
+.chip{font-family:var(--font-heading);font-size:12px;letter-spacing:.03em;text-transform:uppercase;padding:5px 10px;border:1px solid var(--color-divider);color:var(--color-neutral-700);cursor:pointer;user-select:none}
+.chip[data-on="1"]{border-color:var(--color-accent);color:var(--color-bg);background:var(--color-accent)}
+.jlist{overflow-y:auto;flex:1}
+.jitem{display:flex;align-items:center;gap:11px;padding:10px 18px;border-bottom:1px solid color-mix(in srgb,var(--color-text) 8%,transparent);cursor:pointer}
+.jitem:hover{background:color-mix(in srgb,var(--color-text) 4%,transparent)}
+.jdot{width:12px;height:12px;flex:none;border:1px solid var(--color-text)}
+.jmain{flex:1;min-width:0}
+.jname{font-size:13.5px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.jsub{font-size:12px;color:var(--color-neutral-600)}
+.jval{font-size:12.5px;font-variant-numeric:tabular-nums;color:var(--color-neutral-700)}
+.jadded{font-family:var(--font-heading);font-size:9px;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--color-accent);color:var(--color-accent-700);padding:1px 5px}
+.legend{display:flex;flex-wrap:wrap;gap:8px 14px;padding:12px 18px;border-top:1px solid var(--color-divider);font-size:12px;color:var(--color-neutral-700)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:10px;height:10px;border:1px solid var(--color-text);display:inline-block}
+.hint{position:absolute;top:12px;left:50%;transform:translateX(-50%);z-index:500;display:none;align-items:center;gap:9px;background:var(--color-accent);color:var(--color-bg);font-family:var(--font-heading);font-size:13px;letter-spacing:.02em;text-transform:uppercase;padding:7px 14px;box-shadow:var(--shadow-md)}
+.hint.on{display:inline-flex}
+body.dark{--color-bg:#161626;--color-surface:#27273d;--color-text:#f4f5fb;--color-divider:rgba(255,255,255,.10);
+  --color-accent:#8881fe;--color-accent-300:#c7c3ff;--color-accent-400:#a9a4ff;--color-accent-500:#8881fe;--color-accent-700:#6058c4;
+  --color-neutral-600:#8b8fad;--color-neutral-700:#aeaeca;
+  --font-heading:"Raleway",system-ui,sans-serif;
+  background:#12121f;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px)}
+body.dark .h1{font-weight:800;letter-spacing:.005em}
+body.dark .side-t,body.dark .pp-name,body.dark .af-t{font-family:var(--font-heading)}
+body.dark .pp-val{color:var(--color-accent-300)}
+body.dark #map{background:#0f0f18}
+body.dark .leaflet-container{background:#0f0f18}
+body.dark .leaflet-tile{filter:none}
+body.dark .leaflet-container{background:#0f1822}
+body.dark .leaflet-control-attribution{background:rgba(22,35,47,.82)!important;color:#9fb0bd!important}
+body.dark .leaflet-control-attribution a{color:#c3d0da!important}
+body.dark .leaflet-bar a{background:var(--color-surface);color:var(--color-text)}
+body.dark .win{box-shadow:0 24px 60px rgba(0,0,0,.6)}
+body.dark .pill{color:var(--color-accent-300);border-color:var(--color-accent-500)}
+body.dark .jadded{color:var(--color-accent-300)}
+body.dark .tab-on{color:var(--color-accent-300);box-shadow:inset 0 -2px 0 var(--color-accent-400)}
+</style>
+</head>
+<body>
+<div class="page">
+  <p class="kick">tuulblox · Map</p>
+  <div class="head">
+    <h1 class="h1">Where the work is</h1>
+    <p class="note">Every active job plotted from its JobNimbus address, colored by status. Click <b>Add marker</b>, then click anywhere on the map to drop a new job — name it, set a status, and it's saved on this machine. <b>Sample locations around the Twin Cities, Minnesota</b>; tell me your real service area and I'll recenter it.</p>
+  </div>
+  <div class="win blueprint">
+    <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+    <div class="titlebar">
+      <img id="logo" src="assets/tuulblox-ink.png" alt="tuulblox" style="height:16px;width:auto;display:block">
+      <span style="font-family:var(--font-heading);font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-600)">dashboard</span>
+      <span style="flex:1"></span>
+      <span class="pill"><span style="width:6px;height:6px;background:var(--color-accent)"></span>Synced 4 min ago</span>
+      <span class="winctl" id="themebtn" style="cursor:pointer" title="Toggle dark mode"></span>
+      <span class="winctl"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+      <span class="winctl"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="5" width="14" height="14"/></svg></span>
+      <span class="winctl"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></span>
+    </div>
+    <div class="tabs">
+      <a class="tab" href="JN-Pulse%20Home.dc.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5"/><path d="M5 10v10h14V10"/></svg>Home</a>
+      <a class="tab" href="JN-Pulse%20Dashboard.dc.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Dashboard</a>
+      <a class="tab" href="JN-Pulse%20Estimates.dc.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M14 3H6v18h12V8z"/><path d="M14 3v5h4"/></svg>Estimates</a>
+      <a class="tab" href="JN-Pulse%20Inbox.dc.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.5 5h13l3.5 7v6a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-6z"/></svg>Inbox</a>
+      <a class="tab" href="JN-Pulse%20Workflow.dc.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M8 6h8M7 8l4 8M17 8l-4 8"/></svg>Workflow</a>
+      <a class="tab" href="JN-Pulse%20Events.dc.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>Events log</a>
+      <span class="tab tab-on"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.4-8 12-8 12s-8-7.6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Map</span>
+    </div>
+    <div class="maparea">
+      <div style="position:relative;flex:1;display:flex">
+        <div id="map"></div>
+        <div class="hint" id="hint"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Click the map to drop a job · press Esc to stop</div>
+      </div>
+      <aside class="side">
+        <div class="side-h">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+            <div class="side-t">Jobs on the map</div>
+            <button class="btn btn-primary" id="addbtn" style="padding:7px 11px;font-size:13px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Add marker</button>
+          </div>
+          <div style="font-size:12.5px;color:var(--color-neutral-600);margin-top:5px"><span id="count">16</span> shown · <span id="addedcount">0</span> added by you</div>
+          <div style="display:flex;align-items:center;gap:9px;margin-top:11px">
+            <label style="font-family:var(--font-heading);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-600)" for="stylesel">Map style</label>
+            <select class="input" id="stylesel" style="flex:1;min-height:32px;height:32px;padding:2px 8px;font-size:13px"></select>
+          </div>
+        </div>
+        <div class="chips" id="chips"></div>
+        <div class="jlist" id="jlist"></div>
+        <div class="legend" id="legend"></div>
+      </aside>
+    </div>
+  </div>
+</div>
+<script>
+const STATUS = {
+  'Lead':        '#94bce3',
+  'Estimating':  '#749dc4',
+  'Scheduled':   '#5980a6',
+  'In progress': '#416180',
+  'Complete':    '#7a7a7d',
+  'On hold':     '#b7b7ba'
+};
+const SEED = [
+  {name:'Cedar Ridge HOA',             city:'Plymouth, MN',     lat:45.0105, lng:-93.4555, status:'Scheduled',   val:'$48,200'},
+  {name:'Whitfield Roofing Co.',       city:'Maple Grove, MN',  lat:45.0725, lng:-93.4558, status:'In progress', val:'$41,750'},
+  {name:'Northgate Facilities',        city:'Blaine, MN',       lat:45.1608, lng:-93.2349, status:'Estimating',  val:'$39,400'},
+  {name:'Marcus Whitfield',            city:'Roseville, MN',    lat:45.0061, lng:-93.1566, status:'Lead',        val:'$34,900'},
+  {name:'Lakeside Property Mgmt',      city:'Woodbury, MN',     lat:44.9239, lng:-92.9594, status:'Scheduled',   val:'$31,150'},
+  {name:'Beacon Hill Restoration',     city:'Burnsville, MN',   lat:44.7677, lng:-93.2777, status:'On hold',     val:'$18,600'},
+  {name:'Summit Property Group',       city:'St. Paul, MN',     lat:44.9537, lng:-93.0900, status:'Lead',        val:'$22,900'},
+  {name:'Edina Retail Center',         city:'Edina, MN',        lat:44.8897, lng:-93.3499, status:'Complete',    val:'$27,300'},
+  {name:'Riverside Apartments',        city:'Bloomington, MN',  lat:44.8408, lng:-93.2983, status:'In progress', val:'$52,700'},
+  {name:'Depot Logistics',             city:'Eagan, MN',        lat:44.8041, lng:-93.1668, status:'Estimating',  val:'$16,400'},
+  {name:'Lakeville Commons',           city:'Lakeville, MN',    lat:44.6497, lng:-93.2427, status:'Scheduled',   val:'$23,800'},
+  {name:'Minnetonka HOA',              city:'Minnetonka, MN',   lat:44.9211, lng:-93.4687, status:'Complete',    val:'$19,900'},
+  {name:'Eden Prairie Sports Complex', city:'Eden Prairie, MN', lat:44.8547, lng:-93.4708, status:'Lead',        val:'$61,200'},
+  {name:'Apple Valley Center',         city:'Apple Valley, MN', lat:44.7319, lng:-93.2177, status:'In progress', val:'$28,600'},
+  {name:'Shakopee Plaza',              city:'Shakopee, MN',     lat:44.7974, lng:-93.5269, status:'On hold',     val:'$14,300'},
+  {name:'Downtown Minneapolis Tower',  city:'Minneapolis, MN',  lat:44.9778, lng:-93.2650, status:'Estimating',  val:'$88,500'}
+];
+const LS_KEY = 'tuulblox_map_markers_v1';
+
+const map = L.map('map', { zoomControl:true, attributionControl:true }).setView([44.94, -93.25], 10);
+const STYLES = {
+  'Blueprint':   { url:'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', sub:'abcd', attr:'© OpenStreetMap contributors © CARTO' },
+  'Streets':     { url:'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', sub:'abcd', attr:'© OpenStreetMap contributors © CARTO' },
+  'Midnight':    { url:'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', sub:'abcd', attr:'© OpenStreetMap contributors © CARTO' },
+  'Satellite':   { url:'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', sub:'', attr:'Tiles © Esri, Maxar, Earthstar Geographics' },
+  'Topographic': { url:'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', sub:'', attr:'Tiles © Esri' },
+  'USGS Hi-Res': { url:'https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/{z}/{y}/{x}', sub:'', attr:'Imagery © USGS The National Map', max:16 }
+};
+const MOON = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/></svg>';
+const SUN = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
+let tileLayer = null, mapStyle = 'Blueprint';
+try { mapStyle = localStorage.getItem('tuulblox_map_style') || 'Blueprint'; } catch(e){}
+if (!STYLES[mapStyle]) mapStyle = 'Blueprint';
+function setStyle(name){
+  if(!STYLES[name]) name = 'Blueprint';
+  mapStyle = name;
+  if(tileLayer) map.removeLayer(tileLayer);
+  const s = STYLES[name];
+  const opt = { maxZoom:19, attribution:s.attr }; if(s.sub) opt.subdomains = s.sub; if(s.max) opt.maxNativeZoom = s.max;
+  tileLayer = L.tileLayer(s.url, opt).addTo(map);
+  const sel = document.getElementById('stylesel'); if(sel) sel.value = name;
+  try { localStorage.setItem('tuulblox_map_style', name); } catch(e){}
+}
+let darkMode = false;
+try { darkMode = localStorage.getItem('tuulblox_map_theme') === 'dark'; } catch(e){}
+function setTheme(dark){
+  darkMode = dark;
+  document.body.classList.toggle('dark', dark);
+  const logo = document.getElementById('logo'); if(logo) logo.src = dark ? 'assets/tuulblox-light.png' : 'assets/tuulblox-ink.png';
+  const tb = document.getElementById('themebtn'); if(tb) tb.innerHTML = dark ? SUN : MOON;
+  // pair the basemap with the mode: Midnight for Periwinkle dark, Blueprint for light
+  if (dark && mapStyle === 'Blueprint') setStyle('Midnight');
+  else if (!dark && mapStyle === 'Midnight') setStyle('Blueprint');
+  try { localStorage.setItem('tuulblox_map_theme', dark?'dark':'light'); } catch(e){}
+}
+
+function icon(color, temp){
+  return L.divIcon({ className:'', html:'<span class="pin'+(temp?' pin-temp':'')+'" style="--c:'+(color||'#5980a6')+'"></span>', iconSize:[13,13], iconAnchor:[6,6], popupAnchor:[0,-6] });
+}
+function esc(s){ return String(s).replace(/[<>&"]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c])); }
+function statusOptions(sel){ return Object.keys(STATUS).map(s => '<option'+(s===sel?' selected':'')+'>'+s+'</option>').join(''); }
+
+let filter = 'All';
+const entries = [];  // {job, marker, added, el}
+
+function addRow(job, added){
+  const row = document.createElement('div');
+  row.className = 'jitem'; row.dataset.status = job.status;
+  row.innerHTML = '<span class="jdot" style="background:'+(STATUS[job.status]||'#5980a6')+'"></span>'
+    + '<div class="jmain"><div class="jname">'+esc(job.name)+'</div><div class="jsub">'+esc(job.city||'Added location')+' · '+job.status+'</div></div>'
+    + (added ? '<span class="jadded">added</span>' : '<div class="jval">'+(job.val||'')+'</div>');
+  document.getElementById('jlist').appendChild(row);
+  return row;
+}
+
+function place(job, added){
+  const m = L.marker([job.lat, job.lng], { icon: icon(STATUS[job.status], false) }).addTo(map);
+  m.bindPopup('<div class="pp-name">'+esc(job.name)+'</div><div class="pp-meta">'+esc(job.city||'Added by you')+' · '+job.status+'</div>'+(job.val?'<div class="pp-val">'+job.val+'</div>':''));
+  const el = addRow(job, added);
+  const rec = { job, marker:m, added, el };
+  el.onclick = () => { map.flyTo([job.lat, job.lng], 13, {duration:.6}); m.openPopup(); };
+  entries.push(rec);
+  return rec;
+}
+
+// seed + saved
+SEED.forEach(j => place(j, false));
+let saved = [];
+try { saved = JSON.parse(localStorage.getItem(LS_KEY) || '[]'); } catch(e){ saved = []; }
+saved.forEach(j => place(j, true));
+
+function persist(){
+  const mine = entries.filter(e => e.added).map(e => e.job);
+  try { localStorage.setItem(LS_KEY, JSON.stringify(mine)); } catch(e){}
+}
+function refreshCounts(){
+  let shown = 0, added = 0;
+  entries.forEach(e => {
+    const on = (filter === 'All' || e.job.status === filter);
+    e.el.style.display = on ? '' : 'none';
+    if (on) shown++;
+    if (e.added) added++;
+  });
+  document.getElementById('count').textContent = shown;
+  document.getElementById('addedcount').textContent = added;
+}
+
+// filters
+const chips = document.getElementById('chips');
+['All', ...Object.keys(STATUS)].forEach(s => {
+  const c = document.createElement('span');
+  c.className = 'chip'; c.textContent = s; c.dataset.on = (s==='All') ? '1' : '0';
+  c.onclick = () => {
+    filter = s;
+    document.querySelectorAll('.chip').forEach(x => x.dataset.on = (x.textContent===s) ? '1':'0');
+    entries.forEach(e => { const on = (filter==='All'||e.job.status===filter); if(on) e.marker.addTo(map); else map.removeLayer(e.marker); });
+    refreshCounts();
+  };
+  chips.appendChild(c);
+});
+
+// legend
+const legend = document.getElementById('legend');
+Object.entries(STATUS).forEach(([k,v]) => { const s=document.createElement('span'); s.innerHTML='<i style="background:'+v+'"></i>'+k; legend.appendChild(s); });
+
+// add-marker mode
+let addMode = false, temp = null;
+const addbtn = document.getElementById('addbtn'), hint = document.getElementById('hint'), mapEl = document.getElementById('map');
+function setAdd(on){
+  addMode = on;
+  addbtn.classList.toggle('btn-primary', !on); addbtn.classList.toggle('btn-secondary', on);
+  addbtn.innerHTML = on ? 'Cancel' : '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Add marker';
+  hint.classList.toggle('on', on);
+  mapEl.classList.toggle('adding', on);
+  if (!on && temp){ map.removeLayer(temp); temp = null; }
+}
+addbtn.onclick = () => setAdd(!addMode);
+document.addEventListener('keydown', e => { if(e.key==='Escape' && addMode) setAdd(false); });
+
+map.on('click', e => {
+  if (!addMode) return;
+  if (temp) map.removeLayer(temp);
+  temp = L.marker(e.latlng, { icon: icon('#5980a6', true) }).addTo(map);
+  const html = '<div class="addform"><div class="af-t">New job marker</div>'
+    + '<input class="input af-name" placeholder="Customer / job name" maxlength="60">'
+    + '<select class="input af-status">'+statusOptions('Lead')+'</select>'
+    + '<div class="af-row"><button class="btn btn-secondary af-cancel">Cancel</button><button class="btn btn-primary af-save">Save</button></div></div>';
+  temp.bindPopup(html, { minWidth:220, closeButton:false }).openPopup();
+});
+
+map.on('popupopen', ev => {
+  const root = ev.popup.getElement(); if (!root) return;
+  const nameEl = root.querySelector('.af-name'); if (!nameEl) return;
+  const statusEl = root.querySelector('.af-status');
+  nameEl.focus();
+  const cancel = () => { if (temp){ map.removeLayer(temp); temp=null; } };
+  root.querySelector('.af-cancel').onclick = cancel;
+  root.querySelector('.af-save').onclick = () => {
+    const name = (nameEl.value || '').trim() || 'New job';
+    const status = statusEl.value;
+    const ll = temp.getLatLng();
+    map.removeLayer(temp); temp = null;
+    place({ name, city:'Added by you', lat:ll.lat, lng:ll.lng, status }, true);
+    persist(); refreshCounts();
+  };
+});
+
+refreshCounts();
+const stylesel = document.getElementById('stylesel');
+Object.keys(STYLES).forEach(n => { const o=document.createElement('option'); o.textContent=n; stylesel.appendChild(o); });
+stylesel.value = mapStyle;
+stylesel.onchange = () => setStyle(stylesel.value);
+document.getElementById('themebtn').onclick = () => setTheme(!darkMode);
+setStyle(mapStyle);
+setTheme(darkMode);
+</script>
+</body>
+</html>

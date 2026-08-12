@@ -1,0 +1,102 @@
+/* ============================================================
+   PERIWINKLE DARK — toggle-gated retheme layer
+   Source of truth: periwinkle-dark-design-system.md
+   (Geniusee-derived: #161626 ground · #27273D surface · #8881FE accent
+    · Raleway heavy UPPERCASE display.)
+
+   This is a SECOND theme layered over Nocturne. It only takes effect when
+   <html data-theme="periwinkle"> is set (the toggle button does this).
+   With no attribute — or data-theme="nocturne" — the original Nocturne
+   look shows through untouched. Nothing here is destructive.
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap');
+
+/* Tokens live inline on .sb-wrap; !important lets this beat that inline block. */
+[data-theme="periwinkle"] .sb-wrap {
+  --color-bg:      #161626 !important;
+  --color-surface: #27273d !important;
+  --color-text:    #f4f5fb !important;
+  --color-divider: rgba(255,255,255,.10) !important;
+
+  --color-accent:     #8881fe !important;
+  --color-accent-100: #f1f0ff !important;
+  --color-accent-200: #e2e0ff !important;
+  --color-accent-300: #c7c3ff !important;
+  --color-accent-400: #a9a4ff !important;
+  --color-accent-500: #8881fe !important;
+  --color-accent-600: #7f77eb !important;
+  --color-accent-700: #6058c4 !important;
+  --color-accent-800: #35306a !important;
+  --color-accent-900: #232048 !important;
+
+  --color-accent-2:     #a9a4ff !important;
+  --color-accent-2-100: #f1f0ff !important;
+  --color-accent-2-200: #e2e0ff !important;
+  --color-accent-2-300: #c7c3ff !important;
+  --color-accent-2-400: #a9a4ff !important;
+  --color-accent-2-500: #8881fe !important;
+  --color-accent-2-600: #7f77eb !important;
+  --color-accent-2-700: #6058c4 !important;
+  --color-accent-2-800: #35306a !important;
+  --color-accent-2-900: #232048 !important;
+
+  --color-neutral-100: #f4f5fb !important;
+  --color-neutral-200: #e4e4ef !important;
+  --color-neutral-300: #cbcde1 !important;
+  --color-neutral-400: #aeaeca !important;
+  --color-neutral-500: #8b8fad !important;
+  --color-neutral-600: #6f6f90 !important;
+  --color-neutral-700: #4e4e79 !important;
+  --color-neutral-800: #33315c !important;
+  --color-neutral-900: #12121f !important;
+
+  --color-section:       #22264a !important;
+  --color-section-glow:  #33315c !important;
+  --color-section-ghost: #4e4e79 !important;
+
+  --warn: #e0a53d !important;
+
+  --font-heading: "Raleway", system-ui, sans-serif !important;
+  --font-heading-weight: 800 !important;
+}
+
+/* page ground behind the app window */
+[data-theme="periwinkle"] body { background: #12121f !important; }
+
+/* Identity: heavy UPPERCASE display headings */
+[data-theme="periwinkle"] :is(h1,h2,h3,h4,.sb-sname,.ptitle,.nav-brand,.dialog-title,.card-kicker,.sb-kick) {
+  font-family: "Raleway", system-ui, sans-serif !important;
+}
+[data-theme="periwinkle"] :is(h1,h2,h3,h4,.sb-sname,.ptitle,.nav-brand,.dialog-title) {
+  font-weight: 800 !important;
+  text-transform: uppercase;
+  letter-spacing: .005em;
+}
+
+/* Primary buttons → solid periwinkle pill with accent glow */
+[data-theme="periwinkle"] .btn-primary {
+  background: var(--color-accent) !important;
+  color: #ffffff !important;
+  border-color: var(--color-accent) !important;
+  border-radius: 999px !important;
+  box-shadow: 0 8px 26px rgba(136,129,254,.40) !important;
+}
+[data-theme="periwinkle"] .btn-primary:hover {
+  background: var(--color-accent-600) !important;
+  box-shadow: 0 10px 32px rgba(136,129,254,.55) !important;
+}
+
+/* ---- The floating theme toggle (styled here so it needs no theme tokens) -- */
+#pw-theme-toggle {
+  position: fixed; right: 18px; bottom: 18px; z-index: 9999;
+  display: inline-flex; align-items: center; gap: 9px;
+  font: 600 13px/1 "Inter", system-ui, sans-serif; letter-spacing: .02em;
+  padding: 10px 15px; border-radius: 999px; cursor: pointer;
+  color: #eceef7; background: rgba(20,21,32,.86); backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,.16);
+  box-shadow: 0 8px 26px rgba(0,0,0,.4); transition: border-color .15s, box-shadow .15s;
+}
+#pw-theme-toggle:hover { border-color: rgba(255,255,255,.34); }
+#pw-theme-toggle .sw { width: 10px; height: 10px; border-radius: 50%; background: #9184d9; box-shadow: 0 0 0 3px rgba(145,132,217,.22); }
+[data-theme="periwinkle"] #pw-theme-toggle { border-color: rgba(136,129,254,.55); box-shadow: 0 8px 26px rgba(136,129,254,.35); }
+[data-theme="periwinkle"] #pw-theme-toggle .sw { background: #8881fe; box-shadow: 0 0 0 3px rgba(136,129,254,.3); }

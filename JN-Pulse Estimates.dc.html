@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="_ds/nocturne-741c5702-a36a-454c-ace4-72ec12afeb97/styles.css">
+<link rel="stylesheet" href="_ds/periwinkle-dark.css">
+<script src="_ds/nocturne-741c5702-a36a-454c-ace4-72ec12afeb97/_ds_bundle.js"></script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0e0f1a;color:#e9e9ed;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--color-accent);text-decoration:none}a:hover{color:var(--color-accent-300)}
+.sb-wrap{padding:54px 60px 120px}
+.sb-kick{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--color-accent);margin:0 0 14px}
+.sb-head{max-width:1000px;margin:0 auto}
+.sb-note{color:var(--color-neutral-400);font-size:14.5px;line-height:1.65;max-width:800px;margin:0}
+.sb-note b{color:var(--color-text);font-weight:600}
+.sb-state{max-width:1280px;margin:0 auto;padding-top:26px}
+.sb-slabel{display:flex;align-items:center;gap:13px;margin:0 2px 18px}
+.sb-badge{display:grid;place-items:center;width:31px;height:31px;border-radius:9px;background:var(--color-accent);color:#161826;font-weight:600;font-size:15px}
+.sb-sname{font-size:17px;font-weight:600}.sb-smuted{font-size:14px;color:var(--color-neutral-500)}
+.win{width:1280px;background:var(--color-bg);border-radius:13px;overflow:hidden;box-shadow:0 44px 90px -24px rgba(0,0,0,.72),0 0 0 1px var(--color-neutral-800)}
+.titlebar{height:48px;display:flex;align-items:center;gap:11px;padding:0 6px 0 18px;border-bottom:1px solid var(--color-divider);background:linear-gradient(180deg,var(--color-surface),color-mix(in srgb,var(--color-surface) 55%,var(--color-bg)))}
+.winctl{width:44px;height:32px;display:grid;place-items:center;border-radius:7px;color:var(--color-neutral-500)}
+.pill{display:inline-flex;align-items:center;gap:8px;font-size:12px;border-radius:999px;padding:5px 12px}
+.tabs{display:flex;align-items:center;gap:3px;padding:8px 14px;border-bottom:1px solid var(--color-divider)}
+.tab{display:inline-flex;align-items:center;gap:7px;padding:7px 13px;border-radius:8px;font-size:13.5px;color:var(--color-neutral-400);white-space:nowrap}
+.tab:hover{background:color-mix(in srgb,var(--color-text) 6%,transparent);color:var(--color-text)}
+.tab-on{color:var(--color-accent);background:color-mix(in srgb,var(--color-accent) 12%,transparent);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--color-accent) 30%,transparent)}
+.fchip{font-size:12.5px;padding:6px 13px;border-radius:999px;border:1px solid var(--color-divider);color:var(--color-neutral-300);cursor:default;background:transparent}
+.fchip-on{border-color:var(--color-accent);color:var(--color-accent);background:color-mix(in srgb,var(--color-accent) 10%,transparent)}
+.mini{background:var(--color-surface);border:1px solid var(--color-divider);border-radius:11px;padding:13px 16px}
+.warntag{display:inline-flex;align-items:center;font-size:11px;padding:3px 10px;border-radius:6px;background:color-mix(in srgb,var(--warn,#e0a54a) 15%,transparent);color:var(--warn,#e0a54a);border:1px solid color-mix(in srgb,var(--warn,#e0a54a) 40%,transparent)}
+.li{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid var(--color-divider);font-size:12.5px}
+</style>
+</helmet>
+
+<div class="sb-wrap" ref="{{ setRoot }}">
+<header class="sb-head">
+  <p class="sb-kick">tuulblox · Estimates</p>
+  <h1 style="font-size:41px;letter-spacing:-.025em;line-height:1.08;margin:0 0 18px;max-width:840px">Estimates &amp; quotes</h1>
+  <p class="sb-note">Every estimate from JobNimbus in one list — filter by status, scan totals and age, and open any one to read the full quote on the right. <b>New quote</b> starts a draft; <b>Export PDF</b> hands off to the share screen.</p>
+</header>
+
+<section class="sb-state">
+  <div class="sb-slabel"><span class="sb-badge">$</span><span class="sb-sname">Estimates &amp; quotes</span><span class="sb-smuted">— list + live quote preview</span></div>
+  <div class="win">
+    <div class="titlebar">
+      <img src="assets/tuulblox-light.png" alt="tuulblox" style="height:16px;width:auto;display:block"/>
+      <span style="font-size:12.5px;color:var(--color-neutral-500);font-weight:500;letter-spacing:.03em">dashboard</span>
+      <span style="flex:1"></span>
+      <span class="pill" style="color:var(--color-accent-200);background:color-mix(in srgb,var(--color-accent) 12%,transparent);border:1px solid color-mix(in srgb,var(--color-accent) 34%,transparent)"><span style="width:7px;height:7px;border-radius:50%;background:var(--color-accent);box-shadow:0 0 8px var(--color-accent)"></span>Synced 4 min ago</span>
+      <span class="winctl"><svg width="12" height="12" viewBox="0 0 12 12" stroke="currentColor" stroke-width="1.2"><line x1="2" y1="6" x2="10" y2="6"/></svg></span>
+      <span class="winctl"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2.4" y="2.4" width="7.2" height="7.2" rx="1"/></svg></span>
+      <span class="winctl"><svg width="12" height="12" viewBox="0 0 12 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><line x1="3" y1="3" x2="9" y2="9"/><line x1="9" y1="3" x2="3" y2="9"/></svg></span>
+    </div>
+    <div class="tabs">
+      <a class="tab" href="JN-Pulse%20Home.dc.html"><svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor"><path d="M218.83,103.77l-80-75.48a1.14,1.14,0,0,1-.11-.11,16,16,0,0,0-21.53,0l-.11.11L37.17,103.77A16,16,0,0,0,32,115.55V208a16,16,0,0,0,16,16H96a16,16,0,0,0,16-16V160h32v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V115.55A16,16,0,0,0,218.83,103.77Z"/></svg>Home</a>
+      <a class="tab" href="JN-Pulse%20Dashboard.dc.html"><svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor"><path d="M104,40H56A16,16,0,0,0,40,56v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,104,40Zm96,0H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,200,40ZM104,136H56a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,104,136Zm96,0H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,200,136Z"/></svg>Dashboard</a>
+      <span class="tab tab-on"><svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor"><path d="M72,104a8,8,0,0,1,8-8h96a8,8,0,0,1,0,16H80A8,8,0,0,1,72,104Zm8,40h96a8,8,0,0,1,0,16H80a8,8,0,0,1,0-16ZM232,56V208a8,8,0,0,1-11.58,7.15L192,200.94l-28.42,14.21a8,8,0,0,1-7.16,0L128,200.94,99.58,215.15a8,8,0,0,1-7.16,0L64,200.94,35.58,215.15A8,8,0,0,1,24,208V56A16,16,0,0,1,40,40H216A16,16,0,0,1,232,56Zm-16,0H40V195.06l20.42-10.22a8,8,0,0,1,7.16,0L96,199.06l28.42-14.22a8,8,0,0,1,7.16,0L160,199.06l28.42-14.22a8,8,0,0,1,7.16,0L216,195.06Z"/></svg>Estimates</span>
+      <a class="tab" href="JN-Pulse%20Inbox.dc.html"><svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor"><path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48Zm-96,85.15L52.57,64H203.43ZM98.71,128,40,181.81V74.19Zm11.84,10.85,12,11.05a8,8,0,0,0,10.82,0l12-11.05,58,53.15H52.57ZM157.29,128,216,74.18V181.82Z"/></svg>Inbox</a>
+      <a class="tab" href="JN-Pulse%20Workflow.dc.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="5" cy="6" r="2.3"/><circle cx="18" cy="6" r="2.3"/><circle cx="11.5" cy="18" r="2.3"/><line x1="7" y1="6.4" x2="16" y2="6.4"/><line x1="5.8" y1="8" x2="10.4" y2="16"/><line x1="17.2" y1="8" x2="12.6" y2="16"/></svg>Workflow</a>
+      <a class="tab" href="JN-Pulse%20Events.dc.html"><svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor"><path d="M40,64H216a8,8,0,0,1,0,16H40a8,8,0,0,1,0-16Zm176,48H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Zm0,64H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"/></svg>Events log</a>
+      <a class="tab" href="JN-Pulse%20Map.html"><svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor"><path d="M128,64a40,40,0,1,0,40,40A40,40,0,0,0,128,64Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,128Zm0-112a88.1,88.1,0,0,0-88,88c0,31.4,14.51,64.68,42,96.25a254.19,254.19,0,0,0,41.45,38.3,8,8,0,0,0,9.18,0A254.19,254.19,0,0,0,174,200.25c27.45-31.57,42-64.85,42-96.25A88.1,88.1,0,0,0,128,16Z"/></svg>Map</a>
+    </div>
+    <div style="padding:20px 24px 24px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+        <h2 style="font-size:22px;letter-spacing:-.02em;margin:0">All estimates</h2>
+        <span style="font-size:13px;color:var(--color-neutral-500)">546 total · 87 open</span>
+        <span style="flex:1"></span>
+        <div style="display:flex;align-items:center;gap:8px;background:var(--color-surface);border:1px solid var(--color-divider);border-radius:9px;padding:7px 11px;width:210px;color:var(--color-neutral-500)"><svg width="15" height="15" viewBox="0 0 256 256" fill="currentColor"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg><span style="font-size:13px">Search customer…</span></div>
+        <button class="btn btn-primary"><svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/></svg>New quote</button>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">
+        <span class="fchip fchip-on">All</span><span class="fchip">Draft</span><span class="fchip">Sent</span><span class="fchip">Pending</span><span class="fchip">Approved</span><span class="fchip">Rejected</span>
+        <span style="flex:1"></span>
+        <div class="mini" style="padding:7px 13px;font-size:12.5px;color:var(--color-neutral-400)">Outstanding <b style="color:var(--color-text);font-weight:600">$412,900</b></div>
+        <div class="mini" style="padding:7px 13px;font-size:12.5px;color:var(--color-neutral-400)">Approved (mo) <b style="color:var(--color-text);font-weight:600">$96,400</b></div>
+        <div class="mini" style="padding:7px 13px;font-size:12.5px;color:var(--color-neutral-400)">Win rate <b style="color:var(--color-text);font-weight:600">58%</b></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1.55fr 1fr;gap:20px">
+        <table class="table">
+          <thead><tr><th>Estimate</th><th>Customer</th><th>Created</th><th style="text-align:right">Total</th><th>Status</th></tr></thead>
+          <tbody>
+            <sc-for list="{{ rows }}" as="r" hint-placeholder-count="7">
+              <tr>
+                <td style="color:var(--color-neutral-300);font-variant-numeric:tabular-nums">{{ r.num }}</td>
+                <td style="font-weight:500">{{ r.cust }}</td>
+                <td style="color:var(--color-neutral-500)">{{ r.created }}</td>
+                <td style="text-align:right;font-variant-numeric:tabular-nums">{{ r.total }}</td>
+                <td>
+                  <sc-if value="{{ r.warn }}" hint-placeholder-val="{{ false }}"><span class="warntag">{{ r.status }}</span></sc-if>
+                  <sc-if value="{{ r.ok }}" hint-placeholder-val="{{ true }}"><span class="tag {{ r.tagClass }}">{{ r.status }}</span></sc-if>
+                </td>
+              </tr>
+            </sc-for>
+          </tbody>
+        </table>
+        <div style="background:var(--color-surface);border:1px solid var(--color-divider);border-radius:12px;padding:19px 21px;align-self:start">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:4px">
+            <div>
+              <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent);margin-bottom:5px">EST-2087 · quote</div>
+              <div style="font-family:var(--font-heading);font-size:19px;letter-spacing:-.01em">Cedar Ridge HOA</div>
+              <div style="font-size:12.5px;color:var(--color-neutral-500);margin-top:3px">Reroof — Building C · created Aug 3</div>
+            </div>
+            <span class="tag tag-accent">Approved</span>
+          </div>
+          <div style="margin-top:14px">
+            <sc-for list="{{ items }}" as="it" hint-placeholder-count="6">
+              <div class="li"><span style="color:var(--color-neutral-300);flex:1">{{ it.desc }}</span><span style="color:var(--color-neutral-500);white-space:nowrap;font-variant-numeric:tabular-nums">{{ it.qty }} × {{ it.rate }}</span><span style="width:70px;text-align:right;font-variant-numeric:tabular-nums">{{ it.amt }}</span></div>
+            </sc-for>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--color-neutral-400);margin-top:13px"><span>Subtotal</span><span style="font-variant-numeric:tabular-nums">$48,200</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--color-neutral-400);margin-top:6px"><span>Tax — exempt</span><span style="font-variant-numeric:tabular-nums">$0</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:12px;padding-top:12px;border-top:1px solid var(--color-divider)"><span style="font-weight:600">Total</span><span style="font-family:var(--font-heading);font-size:22px;font-variant-numeric:tabular-nums">$48,200</span></div>
+          <div style="display:flex;gap:8px;margin-top:16px">
+            <button class="btn btn-primary" style="flex:1">Send to customer</button>
+            <a class="btn btn-secondary" href="JN-Pulse%20Workflow.dc.html#W5"><svg width="15" height="15" viewBox="0 0 256 256" fill="currentColor"><path d="M208,112v96a16,16,0,0,1-16,16H64a16,16,0,0,1-16-16V112A16,16,0,0,1,64,96H88a8,8,0,0,1,0,16H64v96H192V112H168a8,8,0,0,1,0-16h24A16,16,0,0,1,208,112ZM93.66,69.66,120,43.31V136a8,8,0,0,0,16,0V43.31l26.34,26.35a8,8,0,0,0,11.32-11.32l-40-40a8,8,0,0,0-11.32,0l-40,40A8,8,0,0,0,93.66,69.66Z"/></svg>PDF</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1400,&quot;height&quot;:820},&quot;brand&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;Nocturne (blurple)&quot;,&quot;options&quot;:[&quot;Nocturne (blurple)&quot;,&quot;Pro24 (contracting red)&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Brand&quot;},&quot;alertColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#e0a54a&quot;,&quot;options&quot;:[&quot;#e0a54a&quot;,&quot;#d98829&quot;,&quot;#e05a3c&quot;,&quot;#caa15a&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Brand&quot;}}">
+class Component extends DCLogic {
+  componentDidMount(){ this.applyTheme(); }
+  componentDidUpdate(){ this.applyTheme(); }
+  applyTheme(){
+    const el = this.root; if(!el) return;
+    const noct = {'--color-accent':'#9184d9','--color-accent-100':'#f5f4ff','--color-accent-200':'#e7e5fe','--color-accent-300':'#d2cefd','--color-accent-400':'#b5abfc','--color-accent-500':'#968ae0','--color-accent-600':'#796cbf','--color-accent-700':'#5d5294','--color-accent-800':'#423a6a','--color-accent-900':'#2b2741'};
+    const pro  = {'--color-accent':'#C0161B','--color-accent-100':'#fdeceb','--color-accent-200':'#f8cdcb','--color-accent-300':'#efa3a0','--color-accent-400':'#e2645f','--color-accent-500':'#cf2f2f','--color-accent-600':'#9d1418','--color-accent-700':'#7a1114','--color-accent-800':'#521416','--color-accent-900':'#33100f'};
+    const usePro = String(this.props.brand||'').toLowerCase().includes('pro24');
+    Object.entries(usePro?pro:noct).forEach(([k,v]) => el.style.setProperty(k,v));
+    el.style.setProperty('--warn', this.props.alertColor || '#e0a54a');
+  }
+  renderVals(){
+    return {
+      setRoot: (el)=>{ this.root = el; },
+      rows: [
+        {num:'EST-2087', cust:'Cedar Ridge HOA',        created:'Aug 3',  total:'$48,200', status:'Approved', tagClass:'tag-accent',  warn:false, ok:true},
+        {num:'EST-2091', cust:'Summit Property Group',   created:'Aug 8',  total:'$22,900', status:'Draft',    tagClass:'tag-neutral', warn:false, ok:true},
+        {num:'EST-2069', cust:'Whitfield Roofing Co.',   created:'Jul 29', total:'$41,750', status:'Pending',  tagClass:'tag-outline', warn:false, ok:true},
+        {num:'EST-2044', cust:'Northgate Facilities',    created:'Aug 6',  total:'$39,400', status:'Sent',     tagClass:'tag-neutral', warn:false, ok:true},
+        {num:'EST-2058', cust:'Lakeside Property Mgmt',  created:'Aug 1',  total:'$31,150', status:'Approved', tagClass:'tag-accent',  warn:false, ok:true},
+        {num:'EST-2081', cust:'Marcus Whitfield',        created:'Jul 21', total:'$34,900', status:'Sent · 19d',tagClass:'tag-neutral', warn:false, ok:true},
+        {num:'EST-2033', cust:'Beacon Hill Restoration', created:'Jul 15', total:'$18,600', status:'Rejected', tagClass:'',            warn:true,  ok:false},
+      ],
+      items: [
+        {desc:'Tear-off & disposal — 42 sq', qty:'42',     rate:'$120',    amt:'$5,040'},
+        {desc:'GAF Timberline HDZ shingles',  qty:'42',     rate:'$310',    amt:'$13,020'},
+        {desc:'Synthetic underlayment',       qty:'42',     rate:'$45',     amt:'$1,890'},
+        {desc:'Ridge vent + caps',            qty:'180 ft', rate:'$14',     amt:'$2,520'},
+        {desc:'Flashing & pipe boots',        qty:'1',      rate:'$1,650',  amt:'$1,650'},
+        {desc:'Labor — crew, 3 days',         qty:'3',      rate:'$8,027',  amt:'$24,080'},
+      ],
+    };
+  }
+}
+</script>
+<script src="_ds/periwinkle-toggle.js"></script>
+</body>
+</html>
