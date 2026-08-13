@@ -119,14 +119,9 @@ code.k{background:var(--color-surface);border:1px solid var(--color-divider);bor
           <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:8px"><div class="ptitle">Jobs by status</div><div style="font-size:12px;color:var(--color-neutral-500)">263 active</div></div>
           <div style="display:flex;align-items:center;gap:24px">
             <svg width="146" height="146" viewBox="0 0 140 140" style="flex:none">
-              <circle cx="70" cy="70" r="52" fill="none" stroke="var(--color-neutral-900)" stroke-width="20"></circle>
-              <g transform="rotate(-90 70 70)">
-                <sc-for list="{{ jobs }}" as="seg" hint-placeholder-count="6">
-                  <circle cx="70" cy="70" r="52" fill="none" stroke="{{ seg.color }}" stroke-width="20" stroke-dasharray="{{ seg.dash }}" stroke-dashoffset="{{ seg.offset }}"></circle>
-                </sc-for>
-              </g>
-              <text x="70" y="66" text-anchor="middle" fill="var(--color-text)" style="font:500 27px var(--font-heading)">263</text>
-              <text x="70" y="85" text-anchor="middle" fill="var(--color-neutral-500)" style="font:500 9px var(--font-body);letter-spacing:.14em">JOBS</text>
+              <sc-for list="{{ jobs }}" as="seg" hint-placeholder-count="6">
+                <path d="{{ seg.path }}" fill="{{ seg.color }}" stroke="var(--color-surface)" stroke-width="1.5"></path>
+              </sc-for>
             </svg>
             <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;gap:10px 20px">
               <sc-for list="{{ jobs }}" as="seg" hint-placeholder-count="6">
@@ -412,22 +407,25 @@ class Component extends DCLogic {
   }
   renderVals(){
     const jobs = [
-      {label:'Complete',   n:71, color:'var(--color-accent-500)'},
-      {label:'Lead',       n:62, color:'var(--color-accent-400)'},
-      {label:'In progress',n:41, color:'var(--color-accent-600)'},
-      {label:'Estimating', n:38, color:'var(--color-accent-300)'},
-      {label:'On hold',    n:27, color:'var(--color-neutral-600)'},
-      {label:'Scheduled',  n:24, color:'var(--color-neutral-800)'},
+      {label:'Complete',   n:71, color:'#35d28a'},
+      {label:'Lead',       n:62, color:'#8884ff'},
+      {label:'In progress',n:41, color:'#37c4f0'},
+      {label:'Estimating', n:38, color:'#f5b53d'},
+      {label:'On hold',    n:27, color:'#f5715c'},
+      {label:'Scheduled',  n:24, color:'#c084fc'},
     ];
     const jobsTotal = jobs.reduce((a,b)=>a+b.n,0);
-    const CIRC = 2 * Math.PI * 52;
-    let acc = 0;
+    const R = 52, CX = 70, CY = 70, TAU = 2 * Math.PI;
+    let a0 = -Math.PI / 2;  // start at 12 o'clock
     const donut = jobs.map(j => {
       const f = j.n / jobsTotal;
+      const a1 = a0 + f * TAU;
+      const x0 = (CX + R*Math.cos(a0)).toFixed(2), y0 = (CY + R*Math.sin(a0)).toFixed(2);
+      const x1 = (CX + R*Math.cos(a1)).toFixed(2), y1 = (CY + R*Math.sin(a1)).toFixed(2);
+      const large = (f > 0.5) ? 1 : 0;
       const seg = { label:j.label, n:j.n, color:j.color,
-        dash:(f*CIRC).toFixed(2)+' '+(CIRC-f*CIRC).toFixed(2),
-        offset:(-acc*CIRC).toFixed(2) };
-      acc += f; return seg;
+        path:'M '+CX+' '+CY+' L '+x0+' '+y0+' A '+R+' '+R+' 0 '+large+' 1 '+x1+' '+y1+' Z' };
+      a0 = a1; return seg;
     });
     const act = [231,268,205,312,289,177,214];
     const mn = Math.min(...act), mx = Math.max(...act), W=232, H=54, p=5;
